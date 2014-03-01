@@ -12,6 +12,7 @@
         <link href="<?php echo CSS_URL; ?>demo_table_jui.css" rel="stylesheet" />
         <link href="<?php echo CSS_URL; ?>jquery-ui.css" rel="stylesheet" />
         <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
+        <link href="<?php echo CSS_URL; ?>DT_bootstrap.css" rel="stylesheet" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -20,12 +21,11 @@
         <![endif]-->
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="<?php echo JS_URL; ?>jq.js"></script>
-
         <script src="<?php echo JS_URL; ?>jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="<?php echo JS_URL; ?>DT_bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript">
             var http_host_js = '<?php echo ADMIN_URL; ?>';
         </script>

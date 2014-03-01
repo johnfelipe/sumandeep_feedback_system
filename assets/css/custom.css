@@ -34,3 +34,10 @@
 label.error { color: #b94a48;}
 .multi-lang-align{margin-top: 80px; margin-right: 15px;}
 
+.dataTables_filter label input, .dataTables_length label select{width: 240px !important; height: 34px; padding: 6px 12px; background-color: #FFFFFF; border: 1px solid #E5E5E5; color: #333333;}
+.dataTables_length label select {width: 75px !important; height: 34px; padding: 6px 12px; background-color: #FFFFFF; border: 1px solid #E5E5E5; color: #333333;}
+
+.custom-filter-select {width: 240px !important; height: 34px; padding: 6px 12px; background-color: #FFFFFF; border: 1px solid #E5E5E5; color: #333333;}
+
+.custom-filter-label{ margin-left: 5px;}
+
