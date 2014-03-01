@@ -1,0 +1,41 @@
+body{background-size:auto;}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin{margin-bottom:50px;}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+}
+.form-signin input[type="password"] {
+}
+
+.login-box-style{background:rgba(255,255,255,.8); padding:20px;  border-radius:0; color:#359edd; border:1px solid #E4E4E4; margin:0 auto; min-width:240px; max-width:375px;}
+.login-box-style legend{color:#359edd; font-size:24px; border-width:0;}
+.login-box-style .form-control{border-radius:0;}
+.login-box-label{font-size:20px; font-weight:normal; margin-bottom:10px; color: #359EDD;}
+
+.login-box-shadow{background:url(../images/login-box-shadow.png) no-repeat center top; background-size:cover; height:16px;}
+
+.footer-style{color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.28);}
+.footer-text{color:#428BCA; font-weight:bold;}
+
+.no-bg{background:none !important;}
