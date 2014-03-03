@@ -10,10 +10,16 @@ Class sfs_user_model extends CI_model {
     public $password;
     public $fullname;
     public $role;
-    private $table_name = 'user';
+    public $status;
+    private $table_name = 'sfs_user';
 
     function __construct() {
         parent::__construct();
+    }
+
+    function validationRules() {
+        $validation_rules = array();
+        return $validation_rules;
     }
 
     function convertObject($old) {
@@ -23,6 +29,7 @@ Class sfs_user_model extends CI_model {
         $new->password = $old->password;
         $new->fullname = $old->fullname;
         $new->role = $old->role;
+        $new->status = $old->status;
         return $new;
     }
 
@@ -42,6 +49,9 @@ Class sfs_user_model extends CI_model {
 
         if ($this->role != '')
             $arr['role'] = $this->role;
+
+        if ($this->status != '')
+            $arr['status'] = $this->status;
 
         return $arr;
     }
@@ -108,7 +118,11 @@ Class sfs_user_model extends CI_model {
         $this->db->where('userid', $this->userid);
         $this->db->update($this->table_name, $array);
         $check = $this->db->affected_rows();
-        return TRUE;
+        if ($check > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     function deleteData() {

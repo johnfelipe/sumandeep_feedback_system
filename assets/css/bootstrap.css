@@ -4106,6 +4106,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
     background-color: #999999;
     border-radius: 10px;
 }
+
+.badge .badge-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+}
 .badge:empty {
     display: none;
 }
