@@ -49,9 +49,14 @@ $route['logout'] = "authenticate/logout";
 $route['validate'] = "authenticate/validateUser";
 
 
-//COurse
+//Course
 $route['admin/course/getJson'] = "admin/course/getJson";
 $route['admin/course/delete/(:num)'] = "admin/course/deleteListener/$1";
+
+//semester
+$route['admin/semester/(:num)'] = "admin/semester/index/$1";
+$route['admin/semester/getJson/(:num)'] = "admin/semester/getJson/$1";
+$route['admin/semester/delete/(:num)'] = "admin/semester/deleteListener/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
