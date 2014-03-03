@@ -39,7 +39,7 @@ class semester extends CI_Controller {
         $obj->batch= $this->input->post('sem_batch');
 
         if ($this->input->post('sid') != '') {
-                $obj->sid = $this->input->post('sid');
+                $obj->cid = $this->input->post('sid');
                 $check = $obj->updateData();
                 if ($check == true) {
                     $this->session->set_flashdata('success', 'Update the Data Successfully');
@@ -89,7 +89,7 @@ class semester extends CI_Controller {
         $arra = array();
         foreach ($objects as $value) {
             $temp_arr = array();
-            $temp_arr[] = '<a href="' . ADMIN_URL . 'semester/manage/' . $value->cid .'/'.$value->sid . '">' . $value->semester_name . '</a>';
+            $temp_arr[] = '<a href="' . ADMIN_URL . 'semester/manage/' . $value->sid . '">' . $value->semester_name . '</a>';
             $temp_arr[] = $value->batch;
             $temp_arr[] = '<a href="' . ADMIN_URL . 'subject/' . $value->sid . '">Click Here</a>';
             $temp_arr[] = '<a href="' . ADMIN_URL . 'assign_faculty/' . $value->sid . '">Click Here</a>';
