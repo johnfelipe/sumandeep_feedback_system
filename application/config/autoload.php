@@ -57,7 +57,8 @@ $autoload['libraries'] = array(
     'database',
     'session',
     'encrypt',
-    'admin_layout'
+    'admin_layout',
+    'faculty_layout'
 );
 
 

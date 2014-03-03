@@ -25,6 +25,8 @@ class authenticate extends CI_Controller {
 
         if (is_array($result)) {
             if ($result[0]->role == 'F') {
+                 $newdata = array('feedback_session' => $result[0], 'logged_in' => TRUE, 'type' => 'faculty');
+                $this->session->set_userdata($newdata);
                 redirect(FACULTY_URL . 'dashboard', 'refresh');
             } elseif ($result[0]->role == 'S') {
                 redirect(STUDENT_URL . 'dashboard', 'refresh');

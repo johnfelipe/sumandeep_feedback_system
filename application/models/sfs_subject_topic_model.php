@@ -3,30 +3,40 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-Class sfs_course_model extends CI_model {
+Class sfs_subject_topic_model extends CI_model {
 
-    public $cid;
-    public $course_name;
-    private $table_name = 'sfs_course';
+    public $topicid;
+    public $subjectid;
+    public $topic_name;
+    private $table_name = 'sfs_subject_topic';
 
     function __construct() {
         parent::__construct();
     }
 
+    function validationRules() {
+        $validation_rules = array();
+        return $validation_rules;
+    }
+
     function convertObject($old) {
-        $new = new sfs_course_model();
-        $new->cid = $old->cid;
-        $new->course_name = $old->course_name;
+        $new = new sfs_subject_topic_model();
+        $new->topicid = $old->topicid;
+        $new->subjectid = $old->subjectid;
+        $new->topic_name = $old->topic_name;
         return $new;
     }
 
     function toArray() {
         $arr = array();
-        if ($this->cid != '')
-            $arr['cid'] = $this->cid;
+        if ($this->topicid != '')
+            $arr['topicid'] = $this->topicid;
 
-        if ($this->course_name != '')
-            $arr['course_name'] = $this->course_name;
+        if ($this->subjectid != '')
+            $arr['subjectid'] = $this->subjectid;
+
+        if ($this->topic_name != '')
+            $arr['topic_name'] = $this->topic_name;
 
         return $arr;
     }
@@ -37,7 +47,7 @@ Class sfs_course_model extends CI_model {
         $this->db->from($this->table_name);
         $this->db->where($where);
         if (is_null($orderby)) {
-            $orderby = 'cid';
+            $orderby = 'topicid';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc;';
@@ -59,7 +69,7 @@ Class sfs_course_model extends CI_model {
         $this->db->select(' * ');
         $this->db->from($this->table_name);
         if (is_null($orderby)) {
-            $orderby = 'cid';
+            $orderby = 'topicid';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc';
@@ -89,15 +99,19 @@ Class sfs_course_model extends CI_model {
 
     function updateData() {
         $array = $this->toArray();
-        unset($array['cid']);
-        $this->db->where('cid', $this->cid);
+        unset($array['topicid']);
+        $this->db->where('topicid', $this->topicid);
         $this->db->update($this->table_name, $array);
         $check = $this->db->affected_rows();
-        return TRUE;
+        if ($check > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     function deleteData() {
-        $this->db->where('cid', $this->cid);
+        $this->db->where('topicid', $this->topicid);
         $this->db->delete($this->table_name);
         $check = $this->db->affected_rows();
         if ($check > 0) {

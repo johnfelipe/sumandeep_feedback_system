@@ -52,7 +52,7 @@
     <hr>
 </div>
 <div class="col-md-12 add_button">
-    <a href="<?php echo ADMIN_URL . 'course/mamage'; ?>" class="btn btn-default">
+    <a href="<?php echo ADMIN_URL . 'course/manage'; ?>" class="btn btn-default">
         Add New Course
     </a>
 </div>
