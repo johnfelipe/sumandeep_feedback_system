@@ -80,8 +80,6 @@
     <hr>
 
     <form action="<?php echo FACULTY_URL . 'feedback/save' ?>" method="post" id="manage" class="form-horizontal">
-        <input type="hidden" value="<?php echo @$faculty_detail[0]->userid; ?>" name="userid" />
-
         <div class="col-md-12 pull-left">
             <div class="col-md-6">
                 <div class="form-group">
@@ -97,7 +95,7 @@
                         <span class="text-danger">&nbsp;</span>
                     </label>
                     <div class="col-md-8">
-                        <input type="text" name="date" readonly="readonly" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>" class="form-control"/>
+                        <input type="text" name="feedback_date" readonly="readonly" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -174,8 +172,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-md-8">
-                        <input id="timepicker1" type="text" class="form-control required">
-                        <span class="add-on"><i class="icon-time"></i></span>
+                        <input type="text" class="form-control required" name="topic_time_from">
                     </div>
                 </div>
             </div>
@@ -187,8 +184,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-md-8">
-                        <input id="timepicker1" type="text" class="form-control required">
-                        <span class="add-on"><i class="icon-time"></i></span>
+                        <input type="text" class="form-control required" name="topic_time_to">
                     </div>
                 </div>
             </div>
