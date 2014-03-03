@@ -6,9 +6,9 @@
             "bProcessing": true,
             'iDisplayLength': 10,
             "aoColumns": [
-                {"sClass": ""}, {"sClass": "text-center"}, {"sClass": "text-center"}, {"sClass": "text-center"}, {"sClass": ""}
+                {"sClass": ""}, {"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo ADMIN_URL . "semester/getJson/" . @$course_detail[0]->cid; ?>"
+            "sAjaxSource": "<?php echo ADMIN_URL . "subject/getJson/" . @$sem_detail[0]->sid; ?>"
         });
     });
 
@@ -23,7 +23,7 @@
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'semester/delete/' + current_id,
+                            url: http_host_js + 'subject/delete/' + current_id,
                             data: id = current_id,
                             beforeSend: function() {
                                 parent.animate({'backgroundColor': '#fb6c6c'}, 500);
@@ -48,12 +48,12 @@
     }
 </script>
 <div class="col-md-12">
-    <h3>Maintain Semester for : <?php echo @$course_detail[0]->course_name; ?></h3>
+    <h3>Maintain Subject for : <?php echo @$sem_detail[0]->semester_name .' of ' . @$course_detail[0]->course_name; ?></h3>
     <hr>
 </div>
 <div class="col-md-12 add_button">
-    <a href="<?php echo ADMIN_URL . 'semester/manage/' . @$course_detail[0]->cid; ?>" class="btn btn-default">
-        Add New Semester
+    <a href="<?php echo ADMIN_URL . 'subject/manage/' . @$sem_detail[0]->sid; ?>" class="btn btn-default">
+        Add New Subject
     </a>
 </div>
 <div class="col-md-12">
@@ -73,18 +73,12 @@
     <table class="display" id="list_semester" cellpadding="0" cellspacing="0" border="0">
         <thead>
             <tr align="left">
-                <th>Semester Name</th>
-                <th width="100">Batch</th>
-                <th width="200">Subject</th>
-                <th width="200">Assign Faculty</th>
+                <th>Subject Name</th>
                 <th width="25">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>etc</td>
-                <td>etc</td>
-                <td>etc</td>
                 <td>etc</td>
                 <td>etc</td>
             </tr>

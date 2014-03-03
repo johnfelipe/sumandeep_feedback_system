@@ -73,7 +73,7 @@ class semester extends CI_Controller {
         } else {
             $this->session->set_flashdata('error', 'Error while Deleting the Data');
         }
-        redirect(ADMIN_URL . 'course', 'refresh');
+        redirect(ADMIN_URL . 'semester', 'refresh');
     }
 
     function getJson($cid) {

@@ -7,7 +7,7 @@
     //]]>
 </script>
 <div class="col-md-12">
-    <h3>Add New Course</h3>
+    <h3><?php echo (@$sem_detail[0]->sid != '')? 'Edit ' : 'Add New ';?> Semester for : <?php echo @$course_detail[0]->course_name; ?></h3>
     <hr>
 
     <form action="<?php echo ADMIN_URL . 'semester/mangedata' ?>" method="post" id="manage_course" class="form-horizontal">
@@ -19,7 +19,7 @@
                 <span class="text-danger">*</span>
             </label>
             <div class="col-md-4">
-                <input type="text" name="sem_name" required="required" value="<?php echo @$sem_detail[0]->name; ?>" class="form-control" placeholder="Semester Name"/>
+                <input type="text" name="sem_name" required="required" value="<?php echo @$sem_detail[0]->semester_name; ?>" class="form-control" placeholder="Semester Name"/>
             </div>
         </div>
         

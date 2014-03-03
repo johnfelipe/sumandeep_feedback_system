@@ -58,5 +58,10 @@ $route['admin/semester/(:num)'] = "admin/semester/index/$1";
 $route['admin/semester/getJson/(:num)'] = "admin/semester/getJson/$1";
 $route['admin/semester/delete/(:num)'] = "admin/semester/deleteListener/$1";
 
+//Subject
+$route['admin/subject/(:num)'] = "admin/subject/index/$1";
+$route['admin/subject/getJson/(:num)'] = "admin/subject/getJson/$1";
+$route['admin/subject/delete/(:num)'] = "admin/subject/deleteListener/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
