@@ -50,7 +50,6 @@ $route['validate'] = "authenticate/validateUser";
 
 
 //Course
-$route['admin/course/getJson'] = "admin/course/getJson";
 $route['admin/course/delete/(:num)'] = "admin/course/deleteListener/$1";
 
 //semester
@@ -64,8 +63,14 @@ $route['admin/subject/getJson/(:num)'] = "admin/subject/getJson/$1";
 $route['admin/subject/delete/(:num)'] = "admin/subject/deleteListener/$1";
 
 //Faculty
-$route['admin/faculty/getJson'] = "admin/faculty/getJson";
 $route['admin/faculty/delete/(:num)'] = "admin/faculty/deleteListener/$1";
 
+//Faculty
+$route['admin/student/delete/(:num)'] = "admin/student/deleteListener/$1";
+
+
+//Feedback Paramerts
+$route['admin/feedback_parameter/status/(:num)'] = "admin/feedback_parameter/changeStatus/$1";
+$route['admin/feedback_parameter/role/(:num)'] = "admin/feedback_parameter/changeRole/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

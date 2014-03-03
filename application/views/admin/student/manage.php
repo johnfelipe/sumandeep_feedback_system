@@ -1,7 +1,7 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
-        $("#manage_faculty").validate({
+        $("#manage_student").validate({
             rules: {
                 confirm_password: {
                     equalTo: "#password"
@@ -12,18 +12,18 @@
     //]]>
 </script>
 <div class="col-md-12">
-    <h3><?php echo (@$faculty_detail[0]->userid != '') ? 'Edit ' : 'Add New '; ?> Faculty</h3>
+    <h3><?php echo (@$student_detail[0]->userid != '') ? 'Edit ' : 'Add New '; ?> Student</h3>
     <hr>
 
-    <form action="<?php echo ADMIN_URL . 'faculty/mangedata' ?>" method="post" id="manage_faculty" class="form-horizontal">
-        <input type="hidden" value="<?php echo @$faculty_detail[0]->userid; ?>" name="userid" />
+    <form action="<?php echo ADMIN_URL . 'student/mangedata' ?>" method="post" id="manage_student" class="form-horizontal">
+        <input type="hidden" value="<?php echo @$student_detail[0]->userid; ?>" name="userid" />
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">
                 Full Name
                 <span class="text-danger">*</span>
             </label>
             <div class="col-md-4">
-                <input type="text" name="faculty_name" required="required" value="<?php echo @$faculty_detail[0]->fullname; ?>" class="form-control" placeholder="Full Name"/>
+                <input type="text" name="student_name" required="required" value="<?php echo @$student_detail[0]->fullname; ?>" class="form-control" placeholder="Full Name"/>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
                 <span class="text-danger">*</span>
             </label>
             <div class="col-md-4">
-                <input type="text" name="faculty_username" required="required" value="<?php echo @$faculty_detail[0]->username; ?>" class="form-control" placeholder="User Name" autocomplete="off"/>
+                <input type="text" name="student_username" required="required" value="<?php echo @$student_detail[0]->username; ?>" class="form-control" placeholder="User Name" autocomplete="off"/>
             </div>
         </div>
 
@@ -65,8 +65,8 @@
                 <span class="text-danger">&nbsp;</span>
             </label>
             <div class="col-md-4">
-                <input type="radio" name="status"  value="A" <?php echo (@$faculty_detail[0]->status == 'A') ? 'checked="checked"' : ''; ?>/> Active
-                <input type="radio" name="status"  value="D" <?php echo (@$faculty_detail[0]->status == 'D') ? 'checked="checked"' : ''; ?>/> Deactive
+                <input type="radio" name="status"  value="A" <?php echo (@$student_detail[0]->status == 'A') ? 'checked="checked"' : ''; ?>/> Active
+                <input type="radio" name="status"  value="D" <?php echo (@$student_detail[0]->status == 'D') ? 'checked="checked"' : ''; ?>/> Deactive
             </div>
         </div>
 
@@ -74,7 +74,7 @@
             <label class="col-md-1 control-label">&nbsp;</label>
             <div class="col-md-8">
                 <button type="submit" class="btn btn-default">Save</button>
-                <a href="<?php echo ADMIN_URL . 'faculty' ?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo ADMIN_URL . 'student' ?>" class="btn btn-default">Cancel</a>
             </div>
         </div>
 
