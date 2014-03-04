@@ -124,7 +124,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('sfs_student_feedback_details_model');
 
 
 /* End of file autoload.php */

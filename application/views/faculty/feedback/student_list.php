@@ -19,7 +19,7 @@
 </table>
 
 <script>
-    $('div.ratting').raty({score: 1, click: function(score, evt) {
+    $('div.ratting').raty({click: function(score, evt) {
             $("#" + $(this).attr('id') + " :input").attr('name', $(this).attr('id'));
         }
     });

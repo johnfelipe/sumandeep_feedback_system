@@ -122,7 +122,7 @@ Class sfs_assign_student_model extends CI_model {
     }
     
     function getSemesterStudent($sid){
-        $sql = 'SELECT sfs_user.fullname, sfs_user.userid FROM sfs_assign_student, sfs_user WHERE sfs_user = "S" AND sfs_assign_student.studentid = sfs_user.userid AND sfs_assign_student.sid =  '. $sid;
+        $sql = 'SELECT sfs_user.fullname, sfs_user.userid FROM sfs_assign_student, sfs_user WHERE sfs_user.role = "S" AND sfs_assign_student.studentid = sfs_user.userid AND sfs_assign_student.sid =  '. $sid;
         return $this->db->query($sql)->result();
     }
 

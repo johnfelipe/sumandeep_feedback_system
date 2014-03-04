@@ -7,7 +7,8 @@ class feedback extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('sfs_student_feedback_model');
+        $this->load->model('sfs_student_feedback_master_model');
+        $this->load->model('sfs_student_feedback_details_model');
         $this->load->model('sfs_course_model');
         $this->load->model('sfs_semester_model');
         $this->load->model('sfs_subject_model');
@@ -23,22 +24,21 @@ class feedback extends CI_Controller {
     function getJson() {
         $this->load->library('datatable');
         $session = $this->session->userdata('feedback_session');
-        $this->datatable->aColumns = array('u.fullname', 's.subject_name', 't.topic_name', 'p.parameter_name', 'f.*');
+        $this->datatable->aColumns = array('s.subject_name', 't.topic_name', 'f.*');
         $this->datatable->eColumns = array('f.student_feedback_id');
         $this->datatable->sIndexColumn = "f.student_feedback_id";
-        $this->datatable->sTable = " sfs_student_feedback f, sfs_subject s, sfs_user u, sfs_subject_topic t, sfs_feedback_parameters p";
-        $this->datatable->myWhere = "WHERE f.studentid=u.userid AND f.subjectid=s.subjectid AND p.paramterid = f.parameterid AND f.topicid=t.topicid AND f.facultyid = " . $session->userid;
+        $this->datatable->sTable = " sfs_student_feedback_master f, sfs_subject s, sfs_subject_topic t";
+        $this->datatable->myWhere = "WHERE f.subjectid=s.subjectid AND f.topicid=t.topicid AND f.facultyid = " . $session->userid;
         $this->datatable->sOrder = "order by f.student_feedback_id desc";
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['fullname'];
             $temp_arr[] = $aRow['subject_name'];
             $temp_arr[] = $aRow['topic_name'];
             $temp_arr[] = date('d-m-Y', strtotime($aRow['feedback_date']));
             $temp_arr[] = date('H:i a', strtotime($aRow['topic_time_from'])) . ' : ' . date('H:i a', strtotime($aRow['topic_time_to']));
-            $temp_arr[] = $aRow['ratting'];
+            $temp_arr[] = '<a href="' . FACULTY_URL . 'feedback/view_feedback/' . $aRow['student_feedback_id'] . '">Click Here</a>';
             $this->datatable->output['aaData'][] = $temp_arr;
         }
         echo json_encode($this->datatable->output);
@@ -85,46 +85,78 @@ class feedback extends CI_Controller {
         $parameters = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'S'));
         $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
         $session = $this->session->userdata('feedback_session');
+
+        $where_master = array(
+            'facultyid' => $session->userid,
+            'subjectid' => $this->input->post('subjectid'),
+            'topicid' => $this->input->post('topicid'),
+            'feedback_date' => date('Y-m-d', strtotime($this->input->post('feedback_date'))),
+            'topic_time_from' => date('H:i', strtotime($this->input->post('topic_time_from'))),
+            'topic_time_to' => date('H:i', strtotime($this->input->post('topic_time_to'))),
+        );
+
+        $obj_master = new sfs_student_feedback_master_model();
+        $check_master = $obj_master->getWhere($where_master);
+        $master_id = 0;
+
+        $obj_master->facultyid = $session->userid;
+        $obj_master->subjectid = $this->input->post('subjectid');
+        $obj_master->topicid = $this->input->post('topicid');
+        $obj_master->feedback_date = date('Y-m-d', strtotime($this->input->post('feedback_date')));
+        $obj_master->topic_time_from = date('H:i', strtotime($this->input->post('topic_time_from')));
+        $obj_master->topic_time_to = date('H:i', strtotime($this->input->post('topic_time_to')));
+
+        if (is_array($check_master) && count($check_master) == 1) {
+            $obj_master->student_feedback_id = $check_master[0]->student_feedback_id;
+            $obj_master->updateData();
+            $master_id = $check_master[0]->student_feedback_id;
+        } else {
+            $master_id = $obj_master->insertData();
+        }
+
+
+
         foreach ($student_list as $student) {
             foreach ($parameters as $param) {
-                $where = array(
+                $where_detail = array(
+                    'student_feedback_id' => $master_id,
                     'studentid' => $student->userid,
-                    'facultyid' => $session->userid,
                     'parameterid' => $param->paramterid,
-                    'subjectid' => $this->input->post('subjectid'),
-                    'topicid' => $this->input->post('topicid'),
-                    'feedback_date' => date('Y-m-d', strtotime($this->input->post('feedback_date'))),
-                    'topic_time_from' => date('H:i', strtotime($this->input->post('topic_time_from'))),
-                    'topic_time_to' => date('H:i', strtotime($this->input->post('topic_time_to'))),
                 );
-                $obj = new sfs_student_feedback_model();
-                $check = $obj->getWhere($where);
 
-                $obj->studentid = $student->userid;
-                $obj->facultyid = $session->userid;
-                $obj->parameterid = $param->paramterid;
-                $obj->subjectid = $this->input->post('subjectid');
-                $obj->topicid = $this->input->post('topicid');
-                $obj->feedback_date = date('Y-m-d', strtotime($this->input->post('feedback_date')));
-                $obj->topic_time_from = date('H:i', strtotime($this->input->post('topic_time_from')));
-                $obj->topic_time_to = date('H:i', strtotime($this->input->post('topic_time_to')));
+                $obj_detail = new sfs_student_feedback_details_model();
+                $check_detail = $obj_detail->getWhere($where_detail);
+
+                $obj_detail->student_feedback_id = $master_id;
+                $obj_detail->studentid = $student->userid;
+                $obj_detail->parameterid = $param->paramterid;
                 $score = $this->input->post('ratting_' . $param->paramterid . '_' . $student->userid);
                 if ($score != '') {
-                    $obj->ratting = $score;
+                    $obj_detail->ratting = $score;
                 } else {
-                    $obj->ratting = '1';
+                    $obj_detail->ratting = '1';
                 }
 
-                if (is_array($check) && count($check) == 1) {
-                    $obj->student_feedback_id = $check[0]->student_feedback_id;
-                    $obj->updateData();
+                if (is_array($check_detail) && count($check_detail) == 1) {
+                    $obj_detail->student_feedback_detail_id = $check_detail[0]->student_feedback_detail_id;
+                    $obj_detail->updateData();
                 } else {
-                    $obj->insertData();
+                    $obj_detail->insertData();
                 }
             }
         }
 
         redirect(FACULTY_URL . 'feedback', 'refresh');
+    }
+
+    function view_feedback($feedbackid) {
+        $data['feedback_master'] = $this->sfs_student_feedback_master_model->getMasterFeedback($feedbackid);
+        $data['feedback_detail'] = $this->sfs_student_feedback_details_model->getDetailFeedback($feedbackid);
+
+        $data['parameters'] = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'S'));
+        $data['student_list'] = $this->sfs_assign_student_model->getSemesterStudent($data['feedback_master'][0]->sid);
+        
+        $this->faculty_layout->view('faculty/feedback/view_feedback', $data);
     }
 
 }

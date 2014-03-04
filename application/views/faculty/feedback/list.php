@@ -7,7 +7,7 @@
             'iDisplayLength': 25,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": "", "bSortable": true}, {"sClass": "", "bSortable": false}, {"sClass": "", "bSortable": false},
+                 {"sClass": "", "bSortable": true}, {"sClass": "", "bSortable": false},
                 {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo FACULTY_URL . "feedback/getJson"; ?>"
@@ -41,17 +41,15 @@
     <table class="table table-bordered" id="list_course">
         <thead>
             <tr>
-                <th>Student</th>
                 <th>Subject</th>
                 <th>Topic</th>
                 <th width="125">Date</th>
                 <th width="175">Time</th>
-                <th width="75">Rating</th>
+                <th width="125">Result</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>etc</td>
                 <td>etc</td>
                 <td>etc</td>
                 <td>etc</td>
