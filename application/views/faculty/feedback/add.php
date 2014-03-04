@@ -3,7 +3,11 @@
     $(document).ready(function() {
         $("#manage").validate();
 
-        //$('#timepicker1').timepicker();
+        <?php $date = date('m/d/Y', strtotime(get_current_date_time()->get_date_for_db())); ?>
+        $("#feedback_date").datepicker({ dateFormat: 'dd-mm-yy', maxDate:<?php echo $date; ?>, changeMonth: true, changeYear: true, yearRange: "1900:<?php echo date('Y'); ?>"});
+        
+        $('#topic_time_from').timepicker({hourMin: 9, hourMax: 17});
+        $('#topic_time_to').timepicker({hourMin: 9, hourMax: 17});
 
         $("#course_detials").change(function() {
             var cid = $('#course_detials').val();
@@ -95,7 +99,7 @@
                         <span class="text-danger">&nbsp;</span>
                     </label>
                     <div class="col-md-8">
-                        <input type="text" name="feedback_date" readonly="readonly" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>" class="form-control"/>
+                        <input type="text" name="feedback_date" id="feedback_date" readonly="readonly" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -172,7 +176,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control required" name="topic_time_from">
+                        <input type="text" class="form-control required" readonly="readonly" name="topic_time_from" id="topic_time_from">
                     </div>
                 </div>
             </div>
@@ -184,7 +188,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control required" name="topic_time_to">
+                        <input type="text" class="form-control required" readonly="readonly" name="topic_time_to" id="topic_time_to">
                     </div>
                 </div>
             </div>

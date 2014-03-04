@@ -112,16 +112,15 @@ table.display thead th div.DataTables_sort_wrapper span {
 	padding: 2px 0;
 }
 .dataTables_length {
-	width: 40%;
 	float: left;
+        margin: 0 0 10px 0;
 }
 .dataTables_filter {
-	width: 50%;
+	margin: 0 0 10px 0;
 	float: right;
 	text-align: right;
 }
 .dataTables_info {
-	width: 40%;
 	float: left;
 }
 .dataTables_paginate {
@@ -192,49 +191,6 @@ table.display td.center {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables row classes
  */
-table.display tr.odd.gradeA {
-	background-color: #FFF;
-}
-table.display tr.even.gradeA {
-	background-color: #D9D9D9;
-}
-table.display tr.odd.gradeA {
-	background-color: #FFF;
-}
-table.display tr.even.gradeA {
-	background-color: #D9D9D9;
-}
-table.display tr.odd.gradeC {
-	background-color: #ddddff;
-}
-table.display tr.even.gradeC {
-	background-color: #eeeeff;
-}
-table.display tr.odd.gradeX {
-	background-color: #ffdddd;
-}
-table.display tr.even.gradeX {
-	background-color: #ffeeee;
-}
-table.display tr.odd.gradeU {
-	background-color: #ddd;
-}
-table.display tr.even.gradeU {
-	background-color: #eee;
-}
-tr.odd {
-	background-color:#FFF; /*ManTbackground-color: #E2E4FF;*/
-}
-tr.even {
-	background-color:#D9D9D9; /*ManTbackground-color: white;*/
-}
-
-.content-row-full table tr.odd {
-	background-color:#FFF; /*ManTbackground-color: #E2E4FF;*/
-}
-.content-row-full table tr.even {
-	background-color:#FFF; /*ManTbackground-color: white;*/
-}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Misc
@@ -300,28 +256,7 @@ table.display tr.even.row_selected td {
 table.display tr.odd.row_selected td {
 	background-color: #9FAFD1;
 }
-/*
- * Sorting classes for columns
- */
-/* For the standard odd/even */
-tr.odd td.sorting_1 {
-	background-color:#D0D0D0; /*ManTbackground-color: #D3D6FF;*/
-}
-tr.odd td.sorting_2 {
-	background-color: #DADCFF;
-}
-tr.odd td.sorting_3 {
-	background-color: #E0E2FF;
-}
-tr.even td.sorting_1 {
-	background-color:#A0A0A0; /*ManTbackground-color: #EAEBFF;*/
-}
-tr.even td.sorting_2 {
-	background-color: #F2F3FF;
-}
-tr.even td.sorting_3 {
-	background-color: #F9F9FF;
-}
+
 /* For the Conditional-CSS grading rows */
 /*
  	Colour calculations (based off the main row colours)

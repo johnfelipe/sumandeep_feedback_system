@@ -28,7 +28,8 @@
         <script src="<?php echo JS_URL; ?>jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>DT_bootstrap.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.raty.js" type="text/javascript"></script>
-
+        <script src="<?php echo JS_URL; ?>jquery-ui.js" type="text/javascript"></script>
+        <script src="<?php echo JS_URL; ?>jquery-ui-timepicker-addon.js" type="text/javascript"></script>
 
 
         <script type="text/javascript">

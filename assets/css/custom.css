@@ -41,3 +41,9 @@ label.error { color: #b94a48;}
 
 .custom-filter-label{ margin-left: 5px;}
 
+.DataTables_sort_wrapper .ui-icon {
+    display: inline !important;
+    float: right;
+    color: #ffffff;
+}
+

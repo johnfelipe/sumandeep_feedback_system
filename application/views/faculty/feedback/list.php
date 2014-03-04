@@ -4,10 +4,11 @@
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "bProcessing": true,
-            'iDisplayLength': 10,
+            'iDisplayLength': 25,
+            "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""}, {"sClass": ""}, {"sClass": ""},
-                {"sClass": ""}, {"sClass": ""}, {"sClass": ""}
+                {"sClass": "", "bSortable": true}, {"sClass": "", "bSortable": false}, {"sClass": "", "bSortable": false},
+                {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo FACULTY_URL . "feedback/getJson"; ?>"
         });
@@ -37,15 +38,15 @@
         }
         ?>
 <?php } ?>
-    <table class="display" id="list_course" cellpadding="0" cellspacing="0" border="0">
+    <table class="table table-bordered" id="list_course">
         <thead>
-            <tr align="left">
+            <tr>
                 <th>Student</th>
                 <th>Subject</th>
                 <th>Topic</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Rating</th>
+                <th width="125">Date</th>
+                <th width="175">Time</th>
+                <th width="75">Rating</th>
             </tr>
         </thead>
         <tbody>
