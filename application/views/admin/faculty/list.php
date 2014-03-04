@@ -7,7 +7,7 @@
             'iDisplayLength': 10,
             "bSort": false,
             "aoColumns": [
-                {"sClass": ""}, {"sClass": ""}
+                {"sClass": ""}, {"sClass": "text-center"}, {"sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo ADMIN_URL . "faculty/getJson"; ?>"
         });
@@ -82,11 +82,13 @@
         <thead>
             <tr align="left">
                 <th>Faculty Name</th>
+                <th width="175">&nbsp;</th>
                 <th width="25">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td>etc</td>
                 <td>etc</td>
                 <td>etc</td>
             </tr>

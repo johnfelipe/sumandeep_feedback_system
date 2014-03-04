@@ -63,8 +63,6 @@
                             <li><a href="<?php echo ADMIN_URL . 'faculty' ?>">Faculty</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'student' ?>">Student</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'feedback_parameter' ?>">Feedback Parameters</a></li>
-                            <li><a href="<?php echo ADMIN_URL . 'feedback/student' ?>">Student Feedback</a></li>
-                            <li><a href="<?php echo ADMIN_URL . 'feedback/faculty' ?>">Faculty Feedback</a></li>
                         </ul>
 
                         <ul class="nav navbar-nav pull-right">
