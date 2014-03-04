@@ -4,7 +4,8 @@
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "bProcessing": true,
-            'iDisplayLength': 10,
+            'iDisplayLength': 25,
+            "bSort": false,
             "aoColumns": [
                 {"sClass": ""}, {"sClass": "text-center"}, {"sClass": "text-center"}
             ],
@@ -119,7 +120,7 @@
         }
         ?>
 <?php } ?>
-    <table class="display" id="list_course" cellpadding="0" cellspacing="0" border="0">
+    <table id="list_course" class="table table-bordered">
         <thead>
             <tr align="left">
                 <th>Parameter Name</th>

@@ -5,6 +5,7 @@
             "sPaginationType": "full_numbers",
             "bProcessing": true,
             'iDisplayLength': 10,
+            "bSort": false,
             "aoColumns": [
                 {"sClass": ""}, {"sClass": "text-center"}
             ],
@@ -70,7 +71,7 @@
         }
         ?>
 <?php } ?>
-    <table class="display" id="list_semester" cellpadding="0" cellspacing="0" border="0">
+    <table class="table table-bordered" id="list_semester">
         <thead>
             <tr align="left">
                 <th>Subject Name</th>

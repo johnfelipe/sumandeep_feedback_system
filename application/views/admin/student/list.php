@@ -5,6 +5,7 @@
             "sPaginationType": "full_numbers",
             "bProcessing": true,
             'iDisplayLength': 10,
+            "bSort": false,
             "aoColumns": [
                 {"sClass": ""}, {"sClass": ""}
             ],
@@ -77,7 +78,7 @@
         }
         ?>
 <?php } ?>
-    <table class="display" id="list_course" cellpadding="0" cellspacing="0" border="0">
+    <table class="table table-bordered" id="list_course">
         <thead>
             <tr align="left">
                 <th>Student Name</th>
