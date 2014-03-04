@@ -70,13 +70,13 @@ class student extends CI_Controller {
 
         if (is_array($res) && count($res) == 1) {
             $obj->userid = $id;
-            
+
             if ($res[0]->status == 'A') {
                 $obj->status = 'D';
             } else {
                 $obj->status = 'A';
             }
-            
+
             $check = $obj->updateData();
 
             if ($check == true) {
@@ -84,11 +84,9 @@ class student extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error', 'Error while Updating the Student');
             }
-            
         } else {
             $this->session->set_flashdata('error', 'Error while Updating the Student');
         }
-
     }
 
     function getJson() {
@@ -105,6 +103,7 @@ class student extends CI_Controller {
         foreach ($objects as $value) {
             $temp_arr = array();
             $temp_arr[] = '<a href="' . ADMIN_URL . 'student/manage/' . $value->userid . '">' . $value->fullname . '</a>';
+            $temp_arr[] = '<a href="' . ADMIN_URL . 'student/feedback/' . $value->userid . '">View Feedback</a>';
             if ($value->status == 'A') {
                 $status = '<span class="label label-success">Active</span>';
             } else {
@@ -114,6 +113,32 @@ class student extends CI_Controller {
             $arra[] = $temp_arr;
         }
         return $arra;
+    }
+
+    function feedback($userid) {
+        $this->load->model('sfs_student_feedback_details_model');
+        $this->load->model('sfs_student_feedback_master_model');
+        $this->load->model('sfs_assign_student_model');
+        $this->load->model('sfs_user_model');
+        $this->load->model('sfs_feedback_parameters_model');
+
+        $feedbackids = $this->sfs_student_feedback_details_model->getDistincitFeedbackID($userid);
+        $main = array();
+        foreach ($feedbackids as $id) {
+            $temp = array();
+            $feedback_master = $this->sfs_student_feedback_master_model->getMasterFeedback($id->student_feedback_id);
+            $user = $this->sfs_user_model->getWhere(array('userid' => $feedback_master[0]->facultyid));
+            $temp['facultyid'] = $user[0]->userid;
+            $temp['faculty_name'] = $user[0]->fullname;
+            $temp['studentid'] = $userid;
+            $temp['feedback_master'] = $feedback_master[0];
+            $main[] = $temp;
+        }
+        $data['student_detail'] = $this->sfs_user_model->getWhere(array('userid' => $userid));
+        $data['parameters'] = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'S'));
+
+        $data['details'] = $main;
+        $this->admin_layout->view('admin/student/view_feedback', $data);
     }
 
 }

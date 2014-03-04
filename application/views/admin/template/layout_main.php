@@ -26,6 +26,7 @@
         <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>DT_bootstrap.js" type="text/javascript"></script>
+        <script src="<?php echo JS_URL; ?>jquery.raty.js" type="text/javascript"></script>
         <script type="text/javascript">
             var http_host_js = '<?php echo ADMIN_URL; ?>';
         </script>
@@ -58,10 +59,12 @@
                     </div>
                     <div class="collapse navbar-collapse padding-killer">
                         <ul class="nav navbar-nav">
-                            <li><a href="<?php echo ADMIN_URL . 'Course' ?>">Course</a></li>
+                            <li><a href="<?php echo ADMIN_URL . 'course' ?>">Course</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'faculty' ?>">Faculty</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'student' ?>">Student</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'feedback_parameter' ?>">Feedback Parameters</a></li>
+                            <li><a href="<?php echo ADMIN_URL . 'feedback/student' ?>">Student Feedback</a></li>
+                            <li><a href="<?php echo ADMIN_URL . 'feedback/faculty' ?>">Faculty Feedback</a></li>
                         </ul>
 
                         <ul class="nav navbar-nav pull-right">

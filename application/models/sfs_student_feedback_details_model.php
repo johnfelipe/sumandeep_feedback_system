@@ -151,6 +151,14 @@ Class sfs_student_feedback_details_model extends CI_model {
         }
         
     }
+    
+    function getDistincitFeedbackID($userid){
+        $this->db->select('Distinct(student_feedback_id) as student_feedback_id');
+        $this->db->from($this->table_name);
+        $this->db->where('studentid', $userid);
+        $res = $this->db->get()->result();
+        return $res;
+    }
 
 }
 
