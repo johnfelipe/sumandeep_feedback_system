@@ -125,6 +125,26 @@ Class sfs_faculty_feedback_details_model extends CI_model {
             return FALSE;
         }
     }
+    
+    function getDetailFeedback($faculty_feedback_id){
+        $sql = 'SELECT u.fullname, p.parameter_name, f.ratting FROM sfs_student_feedback_details f, sfs_user u, sfs_feedback_parameters p WHERE f.studentid=u.userid AND f.parameterid=p.paramterid AND f.student_feedback_id = ' . $faculty_feedback_id;
+        $res = $this->db->query($sql);
+        return $res->result();
+    }
+
+    static function getFeedbackRate($feedbackid, $parameterid) {
+        $ci = get_instance();
+        $ci->db->select(' * ');
+        $ci->db->from('sfs_faculty_feedback_details');
+        $ci->db->where(array('faculty_feedback_id' => $feedbackid, 'parameterid' => $parameterid));
+        $res = $ci->db->get()->result();
+
+        if (count($res) == 1) {
+            return $res[0]->ratting;
+        } else {
+            return 0;
+        }
+    }
 
 }
 

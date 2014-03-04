@@ -40,7 +40,7 @@ class feedback extends CI_Controller {
             $temp_arr[] = $aRow['topic_name'];
             $temp_arr[] = date('d-m-Y', strtotime($aRow['feedback_date']));
             $temp_arr[] = date('H:i a', strtotime($aRow['topic_time_from'])) . ' : ' . date('H:i a', strtotime($aRow['topic_time_to']));
-            $temp_arr[] = 'Click Here';
+            $temp_arr[] = '<a href="' . STUDENT_URL . 'feedback/view_feedback/' . $aRow['faculty_feedback_id'] . '">Click Here</a>';
             $this->datatable->output['aaData'][] = $temp_arr;
         }
         echo json_encode($this->datatable->output);
@@ -127,6 +127,14 @@ class feedback extends CI_Controller {
         }
 
         redirect(STUDENT_URL . 'feedback', 'refresh');
+    }
+    
+    function view_feedback($feedbackid) {
+        $data['feedback_master'] = $this->sfs_faculty_feedback_master_model->getMasterFeedback($feedbackid);
+        
+        $data['parameters'] = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'F'));
+        
+        $this->faculty_layout->view('student/feedback/view_feedback', $data);
     }
 
 }
