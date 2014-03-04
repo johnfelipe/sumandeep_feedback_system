@@ -3,12 +3,17 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-Class sfs_assign_student_model extends CI_model {
+Class sfs_faculty_feedback_master_model extends CI_model {
 
-    public $assign_student_id;
+    public $faculty_feedback_id;
     public $studentid;
-    public $sid;
-    private $table_name = 'sfs_assign_student';
+    public $facultyid;
+    public $subjectid;
+    public $topicid;
+    public $feedback_date;
+    public $topic_time_from;
+    public $topic_time_to;
+    private $table_name = 'sfs_faculty_feedback_master';
 
     function __construct() {
         parent::__construct();
@@ -20,23 +25,43 @@ Class sfs_assign_student_model extends CI_model {
     }
 
     function convertObject($old) {
-        $new = new sfs_assign_student_model();
-        $new->assign_student_id = $old->assign_student_id;
+        $new = new sfs_faculty_feedback_master_model();
+        $new->faculty_feedback_id = $old->faculty_feedback_id;
         $new->studentid = $old->studentid;
-        $new->sid = $old->sid;
+        $new->facultyid = $old->facultyid;
+        $new->subjectid = $old->subjectid;
+        $new->topicid = $old->topicid;
+        $new->feedback_date = $old->feedback_date;
+        $new->topic_time_from = $old->topic_time_from;
+        $new->topic_time_to = $old->topic_time_to;
         return $new;
     }
 
     function toArray() {
         $arr = array();
-        if ($this->assign_student_id != '')
-            $arr['assign_student_id'] = $this->assign_student_id;
+        if ($this->faculty_feedback_id != '')
+            $arr['faculty_feedback_id'] = $this->faculty_feedback_id;
 
         if ($this->studentid != '')
             $arr['studentid'] = $this->studentid;
 
-        if ($this->sid != '')
-            $arr['sid'] = $this->sid;
+        if ($this->facultyid != '')
+            $arr['facultyid'] = $this->facultyid;
+
+        if ($this->subjectid != '')
+            $arr['subjectid'] = $this->subjectid;
+
+        if ($this->topicid != '')
+            $arr['topicid'] = $this->topicid;
+
+        if ($this->feedback_date != '')
+            $arr['feedback_date'] = $this->feedback_date;
+
+        if ($this->topic_time_from != '')
+            $arr['topic_time_from'] = $this->topic_time_from;
+
+        if ($this->topic_time_to != '')
+            $arr['topic_time_to'] = $this->topic_time_to;
 
         return $arr;
     }
@@ -47,7 +72,7 @@ Class sfs_assign_student_model extends CI_model {
         $this->db->from($this->table_name);
         $this->db->where($where);
         if (is_null($orderby)) {
-            $orderby = 'assign_student_id';
+            $orderby = 'faculty_feedback_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc;';
@@ -69,7 +94,7 @@ Class sfs_assign_student_model extends CI_model {
         $this->db->select(' * ');
         $this->db->from($this->table_name);
         if (is_null($orderby)) {
-            $orderby = 'assign_student_id';
+            $orderby = 'faculty_feedback_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc';
@@ -91,7 +116,7 @@ Class sfs_assign_student_model extends CI_model {
         $this->db->insert($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
-            return TRUE;
+            return $this->db->insert_id();
         } else {
             return FALSE;
         }
@@ -99,8 +124,8 @@ Class sfs_assign_student_model extends CI_model {
 
     function updateData() {
         $array = $this->toArray();
-        unset($array['assign_student_id']);
-        $this->db->where('assign_student_id', $this->assign_student_id);
+        unset($array['faculty_feedback_id']);
+        $this->db->where('faculty_feedback_id', $this->faculty_feedback_id);
         $this->db->update($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -111,7 +136,7 @@ Class sfs_assign_student_model extends CI_model {
     }
 
     function deleteData() {
-        $this->db->where('assign_student_id', $this->assign_student_id);
+        $this->db->where('faculty_feedback_id', $this->faculty_feedback_id);
         $this->db->delete($this->table_name);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -119,11 +144,6 @@ Class sfs_assign_student_model extends CI_model {
         } else {
             return FALSE;
         }
-    }
-    
-    function getSemesterStudent($sid){
-        $sql = 'SELECT sfs_user.fullname, sfs_user.userid FROM sfs_assign_student, sfs_user WHERE sfs_user = "S" AND sfs_assign_student.studentid = sfs_user.userid AND sfs_assign_student.sid =  '. $sid;
-        return $this->db->query($sql)->result();
     }
 
 }

@@ -3,19 +3,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-Class sfs_student_feedback_model extends CI_model {
+Class sfs_faculty_feedback_details_model extends CI_model {
 
-    public $student_feedback_id;
-    public $studentid;
-    public $facultyid;
+    public $faculty_feedback_detail_id;
+    public $faculty_feedback_id;
     public $parameterid;
-    public $subjectid;
-    public $topicid;
-    public $feedback_date;
-    public $topic_time_from;
-    public $topic_time_to;
     public $ratting;
-    private $table_name = 'sfs_student_feedback';
+    private $table_name = 'sfs_faculty_feedback_details';
 
     function __construct() {
         parent::__construct();
@@ -27,48 +21,24 @@ Class sfs_student_feedback_model extends CI_model {
     }
 
     function convertObject($old) {
-        $new = new sfs_student_feedback_model();
-        $new->student_feedback_id = $old->student_feedback_id;
-        $new->studentid = $old->studentid;
-        $new->facultyid = $old->facultyid;
+        $new = new sfs_faculty_feedback_details_model();
+        $new->faculty_feedback_detail_id = $old->faculty_feedback_detail_id;
+        $new->faculty_feedback_id = $old->faculty_feedback_id;
         $new->parameterid = $old->parameterid;
-        $new->subjectid = $old->subjectid;
-        $new->topicid = $old->topicid;
-        $new->feedback_date = $old->feedback_date;
-        $new->topic_time_from = $old->topic_time_from;
-        $new->topic_time_to = $old->topic_time_to;
         $new->ratting = $old->ratting;
         return $new;
     }
 
     function toArray() {
         $arr = array();
-        if ($this->student_feedback_id != '')
-            $arr['student_feedback_id'] = $this->student_feedback_id;
+        if ($this->faculty_feedback_detail_id != '')
+            $arr['faculty_feedback_detail_id'] = $this->faculty_feedback_detail_id;
 
-        if ($this->studentid != '')
-            $arr['studentid'] = $this->studentid;
-
-        if ($this->facultyid != '')
-            $arr['facultyid'] = $this->facultyid;
+        if ($this->faculty_feedback_id != '')
+            $arr['faculty_feedback_id'] = $this->faculty_feedback_id;
 
         if ($this->parameterid != '')
             $arr['parameterid'] = $this->parameterid;
-
-        if ($this->subjectid != '')
-            $arr['subjectid'] = $this->subjectid;
-
-        if ($this->topicid != '')
-            $arr['topicid'] = $this->topicid;
-
-        if ($this->feedback_date != '')
-            $arr['feedback_date'] = $this->feedback_date;
-
-        if ($this->topic_time_from != '')
-            $arr['topic_time_from'] = $this->topic_time_from;
-
-        if ($this->topic_time_to != '')
-            $arr['topic_time_to'] = $this->topic_time_to;
 
         if ($this->ratting != '')
             $arr['ratting'] = $this->ratting;
@@ -82,7 +52,7 @@ Class sfs_student_feedback_model extends CI_model {
         $this->db->from($this->table_name);
         $this->db->where($where);
         if (is_null($orderby)) {
-            $orderby = 'student_feedback_id';
+            $orderby = 'faculty_feedback_detail_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc;';
@@ -104,7 +74,7 @@ Class sfs_student_feedback_model extends CI_model {
         $this->db->select(' * ');
         $this->db->from($this->table_name);
         if (is_null($orderby)) {
-            $orderby = 'student_feedback_id';
+            $orderby = 'faculty_feedback_detail_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc';
@@ -134,8 +104,8 @@ Class sfs_student_feedback_model extends CI_model {
 
     function updateData() {
         $array = $this->toArray();
-        unset($array['student_feedback_id']);
-        $this->db->where('student_feedback_id', $this->student_feedback_id);
+        unset($array['faculty_feedback_detail_id']);
+        $this->db->where('faculty_feedback_detail_id', $this->faculty_feedback_detail_id);
         $this->db->update($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -146,7 +116,7 @@ Class sfs_student_feedback_model extends CI_model {
     }
 
     function deleteData() {
-        $this->db->where('student_feedback_id', $this->student_feedback_id);
+        $this->db->where('faculty_feedback_detail_id', $this->faculty_feedback_detail_id);
         $this->db->delete($this->table_name);
         $check = $this->db->affected_rows();
         if ($check > 0) {

@@ -25,10 +25,12 @@ class authenticate extends CI_Controller {
 
         if (is_array($result)) {
             if ($result[0]->role == 'F') {
-                 $newdata = array('feedback_session' => $result[0], 'logged_in' => TRUE, 'type' => 'faculty');
+                $newdata = array('feedback_session' => $result[0], 'logged_in' => TRUE, 'type' => 'faculty');
                 $this->session->set_userdata($newdata);
                 redirect(FACULTY_URL . 'dashboard', 'refresh');
             } elseif ($result[0]->role == 'S') {
+                $newdata = array('feedback_session' => $result[0], 'logged_in' => TRUE, 'type' => 'student');
+                $this->session->set_userdata($newdata);
                 redirect(STUDENT_URL . 'dashboard', 'refresh');
             } elseif ($result[0]->role == 'A') {
                 $newdata = array('feedback_session' => $result[0], 'logged_in' => TRUE, 'type' => 'admin');
@@ -47,7 +49,7 @@ class authenticate extends CI_Controller {
     function logout() {
         $this->session->unset_userdata('feedback_session');
         $this->session->sess_destroy();
-        redirect(base_url() .'login', 'refresh');
+        redirect(base_url() . 'login', 'refresh');
     }
 
 }

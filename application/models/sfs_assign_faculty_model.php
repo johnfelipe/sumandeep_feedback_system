@@ -3,12 +3,12 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-Class sfs_assign_student_model extends CI_model {
+Class sfs_assign_faculty_model extends CI_model {
 
-    public $assign_student_id;
-    public $studentid;
+    public $assign_faculty_id;
+    public $facultyid;
     public $sid;
-    private $table_name = 'sfs_assign_student';
+    private $table_name = 'sfs_assign_faculty';
 
     function __construct() {
         parent::__construct();
@@ -20,20 +20,20 @@ Class sfs_assign_student_model extends CI_model {
     }
 
     function convertObject($old) {
-        $new = new sfs_assign_student_model();
-        $new->assign_student_id = $old->assign_student_id;
-        $new->studentid = $old->studentid;
+        $new = new sfs_assign_faculty_model();
+        $new->assign_faculty_id = $old->assign_faculty_id;
+        $new->facultyid = $old->facultyid;
         $new->sid = $old->sid;
         return $new;
     }
 
     function toArray() {
         $arr = array();
-        if ($this->assign_student_id != '')
-            $arr['assign_student_id'] = $this->assign_student_id;
+        if ($this->assign_faculty_id != '')
+            $arr['assign_faculty_id'] = $this->assign_faculty_id;
 
-        if ($this->studentid != '')
-            $arr['studentid'] = $this->studentid;
+        if ($this->facultyid != '')
+            $arr['facultyid'] = $this->facultyid;
 
         if ($this->sid != '')
             $arr['sid'] = $this->sid;
@@ -47,7 +47,7 @@ Class sfs_assign_student_model extends CI_model {
         $this->db->from($this->table_name);
         $this->db->where($where);
         if (is_null($orderby)) {
-            $orderby = 'assign_student_id';
+            $orderby = 'assign_faculty_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc;';
@@ -69,7 +69,7 @@ Class sfs_assign_student_model extends CI_model {
         $this->db->select(' * ');
         $this->db->from($this->table_name);
         if (is_null($orderby)) {
-            $orderby = 'assign_student_id';
+            $orderby = 'assign_faculty_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc';
@@ -99,8 +99,8 @@ Class sfs_assign_student_model extends CI_model {
 
     function updateData() {
         $array = $this->toArray();
-        unset($array['assign_student_id']);
-        $this->db->where('assign_student_id', $this->assign_student_id);
+        unset($array['assign_faculty_id']);
+        $this->db->where('assign_faculty_id', $this->assign_faculty_id);
         $this->db->update($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -111,7 +111,7 @@ Class sfs_assign_student_model extends CI_model {
     }
 
     function deleteData() {
-        $this->db->where('assign_student_id', $this->assign_student_id);
+        $this->db->where('assign_faculty_id', $this->assign_faculty_id);
         $this->db->delete($this->table_name);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -121,8 +121,8 @@ Class sfs_assign_student_model extends CI_model {
         }
     }
     
-    function getSemesterStudent($sid){
-        $sql = 'SELECT sfs_user.fullname, sfs_user.userid FROM sfs_assign_student, sfs_user WHERE sfs_user = "S" AND sfs_assign_student.studentid = sfs_user.userid AND sfs_assign_student.sid =  '. $sid;
+    function getSemesterFaculty($sid){
+        $sql = 'SELECT sfs_user.fullname, sfs_user.userid FROM sfs_assign_faculty, sfs_user WHERE sfs_user.role= "F" AND sfs_assign_faculty.facultyid = sfs_user.userid AND sfs_assign_faculty.sid =  '. $sid;
         return $this->db->query($sql)->result();
     }
 
