@@ -8,7 +8,41 @@
                 }
             }
         });
+<?php
+if (@$semester_detail[0]->sid != '') {
+    $userid = 0;
+    if (@$student_detail[0]->userid != '') {
+        $userid = @$student_detail[0]->userid;
+    }
+    ?>
+            getSemester(<?php echo @$semester_detail[0]->cid . ',' . $userid; ?>);
+<?php } ?>
+
+        $("#course_detials").change(function() {
+
+<?php if (@$student_detail[0]->userid != '') { ?>
+                var userid = '<?php echo @$student_detail[0]->userid; ?>';
+<?php } else { ?>
+                var userid = '0';
+<?php } ?>
+            getSemester($('#course_detials').val(), userid);
+        });
     });
+    function getSemester(cid, userid) {
+        $.ajax({
+            type: 'GET',
+            url: '<?php echo ADMIN_URL; ?>student/getSemesterDetails/' + cid + '/' + userid,
+            success: function(data)
+            {
+                $('#semester_details').empty();
+                $('#semester_details').append(data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                alert('error');
+            }
+        });
+    }
     //]]>
 </script>
 <div class="col-md-12">
@@ -58,6 +92,36 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="question" class="col-md-2 control-label">
+                Course
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+                <select class="form-control required" name="cid" id="course_detials">
+                    <option value="">Select Course</option>
+                    <?php foreach ($course_details as $value) { ?>
+                        <option value="<?php echo $value->cid; ?>" <?php echo (@$semester_detail[0]->cid == $value->cid) ? 'selected="selected"' : ''; ?>><?php echo $value->course_name; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="question" class="col-md-2 control-label">
+                Semester
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+                <select class="form-control required" name="sid" id="semester_details">
+                    <?php if (@$semester_detail[0]->sid != '') { ?>
+                        <option value="<?php echo @$semester_detail[0]->sid; ?>"><?php echo @$semester_detail[0]->semester_name . ' (' . @$semester_detail[0]->batch . ')'; ?></option>
+                    <?php } else { ?>
+                        <option value="">Select Semester</option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">

@@ -19,7 +19,7 @@ class faculty extends CI_Controller {
 
     public function manage($userid = null) {
         $this->admin_layout->setField('page_title', 'Manage Faculty');
-
+        
         if ($userid != null) {
             $data['faculty_detail'] = $this->sfs_user_model->getWhere(array('userid' => $userid));
         } else {
@@ -28,7 +28,7 @@ class faculty extends CI_Controller {
 
         $this->admin_layout->view('admin/faculty/manage', $data);
     }
-
+    
     public function mangedata() {
         $obj = new sfs_user_model();
 

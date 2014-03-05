@@ -106,7 +106,7 @@ Class sfs_user_model extends CI_model {
         $this->db->insert($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
-            return TRUE;
+            return $this->db->insert_id();
         } else {
             return FALSE;
         }
@@ -117,12 +117,7 @@ Class sfs_user_model extends CI_model {
         unset($array['userid']);
         $this->db->where('userid', $this->userid);
         $this->db->update($this->table_name, $array);
-        $check = $this->db->affected_rows();
-        if ($check > 0) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return TRUE;
     }
 
     function deleteData() {
