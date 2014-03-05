@@ -16,7 +16,7 @@ Class sfs_subject_model extends CI_model {
     }
 
     function convertObject($old) {
-        $new = new sfs_course_model();
+        $new = new sfs_subject_model();
         $new->subjectid = $old->subjectid;
         $new->sid = $old->sid;
         $new->subject_name = $old->subject_name;

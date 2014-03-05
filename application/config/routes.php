@@ -72,5 +72,8 @@ $route['admin/student/delete/(:num)'] = "admin/student/deleteListener/$1";
 //Feedback Paramerts
 $route['admin/feedback_parameter/status/(:num)'] = "admin/feedback_parameter/changeStatus/$1";
 $route['admin/feedback_parameter/role/(:num)'] = "admin/feedback_parameter/changeRole/$1";
+
+//Topic 
+$route['admin/topic/(:num)/(:num)'] = "admin/topic/index/$1/$2";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

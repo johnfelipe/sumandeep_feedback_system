@@ -93,6 +93,7 @@ class subject extends CI_Controller {
         foreach ($objects as $value) {
             $temp_arr = array();
             $temp_arr[] = '<a href="' . ADMIN_URL . 'subject/manage/' . $value->sid .'/' . $value->subjectid . '">' . $value->subject_name . '</a>';
+            $temp_arr[] = '<a href="' . ADMIN_URL . 'topic/' . $value->subjectid . '/0">View Topics</a>';
             $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="deletepage icon-trash" id="' . $value->subjectid . '"></a>';
             $arra[] = $temp_arr;
         }

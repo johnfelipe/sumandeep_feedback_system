@@ -1,15 +1,15 @@
 <script type="text/javascript" >
     $(document).ready(function() {
-        $('#list_semester').dataTable({
+        $('#list_topic').dataTable({
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "bProcessing": true,
             'iDisplayLength': 10,
             "bSort": false,
             "aoColumns": [
-                {"sClass": ""}, {"sClass": "text-center"}, {"sClass": "text-center"}
+                {"sClass": ""}, {"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo ADMIN_URL . "subject/getJson/" . @$sem_detail[0]->sid; ?>"
+            "sAjaxSource": "<?php echo ADMIN_URL . "topic/getJson/" . @$subject_detail[0]->subjectid; ?>"
         });
     });
 
@@ -24,7 +24,7 @@
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'subject/delete/' + current_id,
+                            url: http_host_js + 'topic/delete/' + current_id,
                             data: id = current_id,
                             beforeSend: function() {
                                 parent.animate({'backgroundColor': '#fb6c6c'}, 500);
@@ -33,7 +33,6 @@
                                 window.location.reload();
                             },
                             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert('error');
                             }
                         });
                     }
@@ -49,11 +48,11 @@
     }
 </script>
 <div class="col-md-12">
-    <h3>Maintain Subject for : <?php echo @$sem_detail[0]->semester_name .' of ' . @$course_detail[0]->course_name; ?></h3>
+    <h3>Maintain Topic for : <?php echo @$subject_detail[0]->subject_name; ?></h3>
     <hr>
 </div>
 <div class="col-md-12 add_button">
-    <a href="<?php echo ADMIN_URL . 'subject/manage/' . @$sem_detail[0]->sid; ?>" class="btn btn-default">
+    <a href="<?php echo ADMIN_URL . 'topic/manage/' . @$subject_detail[0]->subjectid; ?>" class="btn btn-default">
         Add New Subject
     </a>
 </div>
@@ -70,18 +69,16 @@
             echo '<div class="alert alert-success"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('success') . '</div>';
         }
         ?>
-<?php } ?>
-    <table class="table table-bordered" id="list_semester">
+    <?php } ?>
+    <table class="table table-bordered" id="list_topic">
         <thead>
             <tr align="left">
-                <th>Subject Name</th>
-                <th width="125">&nbsp;</th>
+                <th>Topic Name</th>
                 <th width="25">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>etc</td>
                 <td>etc</td>
                 <td>etc</td>
             </tr>

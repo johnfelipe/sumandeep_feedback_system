@@ -60,7 +60,7 @@ class feedback extends CI_Controller {
         $records = $this->sfs_subject_topic_model->getWhere(array('subjectid' => $subjectid));
         echo '<option value="">Select Topic</option>';
         foreach ($records as $value) {
-            echo '<option value="' . $value->subjectid . '">' . $value->topic_name . '</option>';
+            echo '<option value="' . $value->topicid . '">' . $value->topic_name . '</option>';
         }
     }
 

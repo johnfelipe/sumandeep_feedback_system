@@ -102,12 +102,7 @@ Class sfs_subject_topic_model extends CI_model {
         unset($array['topicid']);
         $this->db->where('topicid', $this->topicid);
         $this->db->update($this->table_name, $array);
-        $check = $this->db->affected_rows();
-        if ($check > 0) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return TRUE;
     }
 
     function deleteData() {
