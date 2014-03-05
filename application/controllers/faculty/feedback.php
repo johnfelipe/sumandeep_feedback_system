@@ -15,6 +15,11 @@ class feedback extends CI_Controller {
         $this->load->model('sfs_subject_topic_model');
         $this->load->model('sfs_assign_student_model');
         $this->load->model('sfs_feedback_parameters_model');
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index() {

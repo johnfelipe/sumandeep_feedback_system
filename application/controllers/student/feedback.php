@@ -16,6 +16,12 @@ class feedback extends CI_Controller {
         $this->load->model('sfs_assign_student_model');
         $this->load->model('sfs_assign_faculty_model');
         $this->load->model('sfs_feedback_parameters_model');
+
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index() {
@@ -128,12 +134,12 @@ class feedback extends CI_Controller {
 
         redirect(STUDENT_URL . 'feedback', 'refresh');
     }
-    
+
     function view_feedback($feedbackid) {
         $data['feedback_master'] = $this->sfs_faculty_feedback_master_model->getMasterFeedback($feedbackid);
-        
+
         $data['parameters'] = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'F'));
-        
+
         $this->faculty_layout->view('student/feedback/view_feedback', $data);
     }
 

@@ -13,6 +13,12 @@ class student extends CI_Controller {
         $this->load->model('sfs_course_model');
         $this->load->model('sfs_semester_model');
         $this->load->model('sfs_assign_student_model');
+        
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index() {

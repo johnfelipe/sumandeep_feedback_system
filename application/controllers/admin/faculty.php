@@ -10,6 +10,12 @@ class faculty extends CI_Controller {
 
         $this->admin_layout->setField('page_title', 'Faculty');
         $this->load->model('sfs_user_model');
+        
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index() {

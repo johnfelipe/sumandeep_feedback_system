@@ -7,6 +7,11 @@ class dashboard extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index() {

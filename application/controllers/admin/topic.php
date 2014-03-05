@@ -11,6 +11,12 @@ class topic extends CI_Controller {
         $this->admin_layout->setField('page_title', 'Topic Managment');
         $this->load->model('sfs_subject_model');
         $this->load->model('sfs_subject_topic_model');
+        
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index($subjectid) {

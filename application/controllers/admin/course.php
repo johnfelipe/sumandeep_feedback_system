@@ -10,6 +10,12 @@ class course extends CI_Controller {
 
         $this->admin_layout->setField('page_title', 'Course');
         $this->load->model('sfs_course_model');
+        
+        $session = $this->session->userdata('feedback_session');
+        if (empty($session)) {
+            $this->session->set_flashdata('error', 'Login First');
+           redirect(base_url() .'login', 'refresh');
+        }
     }
 
     public function index() {
