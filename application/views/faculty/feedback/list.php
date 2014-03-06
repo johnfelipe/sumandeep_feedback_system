@@ -5,10 +5,14 @@
             "sPaginationType": "full_numbers",
             "bProcessing": true,
             'iDisplayLength': 25,
-            "bServerSide" : true,
+            "bServerSide": true,
+            "aaSorting": [[0, "desc"]],
             "aoColumns": [
-                 {"sClass": "", "bSortable": true}, {"sClass": "", "bSortable": false},
-                {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}
+                {"sClass": "text-center", "bSortable": false},
+                {"sClass": "", "bSortable": true},
+                {"sClass": "", "bSortable": false},
+                {"sClass": "text-center", "bSortable": false},
+                {"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo FACULTY_URL . "feedback/getJson"; ?>"
         });
@@ -37,13 +41,13 @@
             echo '<div class="alert alert-success"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('success') . '</div>';
         }
         ?>
-<?php } ?>
+    <?php } ?>
     <table class="table table-bordered" id="list_course">
         <thead>
             <tr>
+                <th width="125">Date</th>
                 <th>Subject</th>
                 <th>Topic</th>
-                <th width="125">Date</th>
                 <th width="175">Time</th>
                 <th width="125">Result</th>
             </tr>

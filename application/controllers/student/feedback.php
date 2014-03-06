@@ -20,7 +20,7 @@ class feedback extends CI_Controller {
         $session = $this->session->userdata('feedback_session');
         if (empty($session)) {
             $this->session->set_flashdata('error', 'Login First');
-           redirect(base_url() .'login', 'refresh');
+            redirect(base_url() . 'login', 'refresh');
         }
     }
 
@@ -31,20 +31,19 @@ class feedback extends CI_Controller {
     function getJson() {
         $this->load->library('datatable');
         $session = $this->session->userdata('feedback_session');
-        $this->datatable->aColumns = array('u.fullname', 's.subject_name', 't.topic_name', 'f.*');
+        $this->datatable->aColumns = array('f.feedback_date', 'u.fullname', 's.subject_name', 't.topic_name', 'f.*');
         $this->datatable->eColumns = array('f.faculty_feedback_id');
         $this->datatable->sIndexColumn = "f.faculty_feedback_id";
         $this->datatable->sTable = " sfs_faculty_feedback_master f, sfs_subject s, sfs_user u, sfs_subject_topic t";
         $this->datatable->myWhere = "WHERE f.facultyid=u.userid AND f.subjectid=s.subjectid AND f.topicid=t.topicid AND f.studentid = " . $session->userid;
-        $this->datatable->sOrder = "order by f.faculty_feedback_id desc";
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['feedback_date']));
             $temp_arr[] = $aRow['fullname'];
             $temp_arr[] = $aRow['subject_name'];
             $temp_arr[] = $aRow['topic_name'];
-            $temp_arr[] = date('d-m-Y', strtotime($aRow['feedback_date']));
             $temp_arr[] = date('H:i a', strtotime($aRow['topic_time_from'])) . ' : ' . date('H:i a', strtotime($aRow['topic_time_to']));
             $temp_arr[] = '<a href="' . STUDENT_URL . 'feedback/view_feedback/' . $aRow['faculty_feedback_id'] . '">Click Here</a>';
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -63,10 +62,22 @@ class feedback extends CI_Controller {
     }
 
     function getTopicDetails($subjectid) {
+        
+        $session = $this->session->userdata('feedback_session');
+        
+        $feedbacks = $this->sfs_faculty_feedback_master_model->getWhere(array('feedback_date' => get_current_date_time()->get_date_for_db(), 'studentid'=>$session->userid));
+
+        $temp = array();
+        foreach ($feedbacks as $feedback) {
+            $temp[] = $feedback->topicid;
+        }
+
         $records = $this->sfs_subject_topic_model->getWhere(array('subjectid' => $subjectid));
         echo '<option value="">Select Topic</option>';
         foreach ($records as $value) {
-            echo '<option value="' . $value->topicid . '">' . $value->topic_name . '</option>';
+            if (!in_array($value->topicid, $temp)) {
+                echo '<option value="' . $value->topicid . '">' . $value->topic_name . '</option>';
+            }
         }
     }
 
@@ -140,7 +151,7 @@ class feedback extends CI_Controller {
 
         $data['parameters'] = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'F'));
 
-        $this->faculty_layout->view('student/feedback/view_feedback', $data);
+        $this->student_layout->view('student/feedback/view_feedback', $data);
     }
 
 }

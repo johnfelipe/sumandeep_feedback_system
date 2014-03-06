@@ -6,9 +6,14 @@
             "bProcessing": true,
             'iDisplayLength': 25,
             "bServerSide" : true,
+            "aaSorting": [[0, "desc"]],
             "aoColumns": [
-                {"sClass": "", "bSortable": true}, {"sClass": "", "bSortable": false}, {"sClass": "", "bSortable": false},
-                {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}, {"sClass": "text-center", "bSortable": false}
+                {"sClass": "text-center", "bSortable": false},
+                {"sClass": "", "bSortable": true},
+                {"sClass": "", "bSortable": false},
+                {"sClass": "", "bSortable": false},
+                {"sClass": "text-center", "bSortable": false},
+                {"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo STUDENT_URL . "feedback/getJson"; ?>"
         });
@@ -41,10 +46,10 @@
     <table class="table table-bordered" id="list_course">
         <thead>
             <tr>
+                <th width="125">Date</th>
                 <th>Faculty</th>
                 <th>Subject</th>
                 <th>Topic</th>
-                <th width="125">Date</th>
                 <th width="175">Time</th>
                 <th width="125">Result</th>
             </tr>
