@@ -94,6 +94,18 @@ class feedback extends CI_Controller {
             }
         }
     }
+    
+    function checkTime() {
+        $session = $this->session->userdata('feedback_session');
+        $get = $this->sfs_student_feedback_master_model->getWhere(array('facultyid' => $session->userid, 'subjectid' => $_POST['subjectid'], 'topicid' => $_POST['topicid'], 'topic_time_from' => $_POST['topic_time_from'], 'topic_time_to' => $_POST['topic_time_to'], 'feedback_date' => get_current_date_time()->get_date_for_db()));
+
+        if (count($get) == 1) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
+        exit;
+    }
 
     function save() {
         $sid = $this->input->post('sid');

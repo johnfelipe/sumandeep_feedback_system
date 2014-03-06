@@ -2,7 +2,7 @@
     //<![CDATA[
     $(document).ready(function() {
         $("#manage").validate();
-        
+
         $('#topic_time_from').timepicker({hourMin: 9, hourMax: 17});
         $('#topic_time_to').timepicker({hourMin: 9, hourMax: 17});
 
@@ -15,6 +15,8 @@
                 {
                     $('#semester_details').empty();
                     $('#semester_details').append(data);
+                    $('.show_paramerters').show();
+                    $('#dispaly_error').hide();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
@@ -33,6 +35,8 @@
 
                     $('#subject_details').empty();
                     $('#subject_details').append(data);
+                    $('.show_paramerters').show();
+                    $('#dispaly_error').hide();
 
                     $.ajax({
                         type: 'GET',
@@ -41,6 +45,8 @@
                         {
                             $('#student_list').empty();
                             $('#student_list').html(data);
+                            $('.show_paramerters').show();
+                            $('#dispaly_error').hide();
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown)
                         {
@@ -64,6 +70,8 @@
                 {
                     $('#topic_details').empty();
                     $('#topic_details').append(data);
+                    $('.show_paramerters').show();
+                    $('#dispaly_error').hide();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
@@ -72,6 +80,47 @@
             });
         });
 
+        $("#topic_time_from").change(function() {
+            $('.show_paramerters').show();
+            $('#dispaly_error').hide();
+        });
+
+        $("#topic_time_to").change(function() {
+            $('.show_paramerters').show();
+            $('#dispaly_error').hide();
+        });
+
+        $("#facultyid").change(function() {
+            var subjectid = $('#subject_details').val();
+            var topicid = $('#topic_details').val();
+            var topic_time_from = $('#topic_time_from').val();
+            var topic_time_to = $('#topic_time_to').val()
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo STUDENT_URL . 'feedback/checkTime'; ?>',
+                data: {
+                    subjectid: subjectid,
+                    topicid: topicid,
+                    topic_time_from: topic_time_from,
+                    topic_time_to: topic_time_to,
+                },
+                success: function(data)
+                {
+                    if (data === 'true') {
+                        $('.show_paramerters').hide();
+                        $('#dispaly_error').show();
+                    } else {
+                        $('.show_paramerters').show();
+                        $('#dispaly_error').hide();
+                    }
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('error');
+                }
+            });
+        });
 
     });
     //]]>

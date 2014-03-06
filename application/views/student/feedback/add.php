@@ -3,7 +3,7 @@
     $(document).ready(function() {
         $("#manage").validate();
 
-        $('#topic_time_from').timepicker({hourMin: 9, hourMax: 17});
+        $('#topic_time_from').timepicker({hourMin: 9, hourMax: 17, showButtonPanel: true,});
         $('#topic_time_to').timepicker({hourMin: 9, hourMax: 17});
 
         $("#subject_details").change(function() {
@@ -15,6 +15,50 @@
                 {
                     $('#topic_details').empty();
                     $('#topic_details').append(data);
+                    $('.show_paramerters').show();
+                    $('#dispaly_error').hide();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('error');
+                }
+            });
+        });
+
+        $("#topic_time_from").change(function() {
+            $('.show_paramerters').show();
+            $('#dispaly_error').hide();
+        });
+
+        $("#topic_time_to").change(function() {
+            $('.show_paramerters').show();
+            $('#dispaly_error').hide();
+        });
+
+        $("#facultyid").change(function() {
+            var subjectid = $('#subject_details').val();
+            var topicid = $('#topic_details').val();
+            var topic_time_from = $('#topic_time_from').val();
+            var topic_time_to = $('#topic_time_to').val()
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo STUDENT_URL . 'feedback/checkTime'; ?>',
+                data: {
+                    subjectid: subjectid,
+                    topicid: topicid,
+                    topic_time_from: topic_time_from,
+                    topic_time_to: topic_time_to,
+                },
+                success: function(data)
+                {
+                    if (data === 'true') {
+                        $('.show_paramerters').hide();
+                        $('#dispaly_error').show();
+                    } else {
+                        $('.show_paramerters').show();
+                        $('#dispaly_error').hide();
+                    }
+
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
@@ -112,6 +156,8 @@
             </div>
         </div>
 
+
+
         <div class="col-md-12 pull-left">
             <div class="col-md-6">
                 <div class="form-group">
@@ -120,7 +166,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-md-8">
-                        <select class="form-control required" name="facultyid">
+                        <select class="form-control required" name="facultyid" id="facultyid">
                             <option value="">Select Faculty</option>
                             <?php foreach ($faculty_list as $faculty) { ?>
                                 <option value="<?php echo $faculty->userid; ?>"><?php echo $faculty->fullname; ?></option>
@@ -139,8 +185,10 @@
         </div>
 
         <div class="clear"></div>
-
-        <div class="col-md-12">
+        <div class="col-md-12" id="dispaly_error" style="display: none">
+            <h3 class="text-center text-danger">Feedback already given for selected Topic and Time !!</h3>
+        </div>
+        <div class="col-md-12 show_paramerters">
             <table class="table table-bordered table-striped">
                 <tr>
                     <th>Sr No.</th>
@@ -158,20 +206,27 @@
                             <div id="<?php echo 'ratting_' . $param->paramterid; ?>" class="ratting text-center"></div>
                         </td>
                     </tr>
-                <?php $i++; } ?>
+                    <?php
+                    $i++;
+                }
+                ?>
             </table>
         </div>
+        
+        <div class="form-group show_paramerters">
+            <div class="col-md-12 text-center">
+                &nbsp;
+            </div>
+        </div>
 
-
-        <div class="form-group">
-            <label class="col-md-1 control-label">&nbsp;</label>
-            <div class="col-md-8">
+        <div class="form-group show_paramerters">
+            <div class="col-md-12 text-center">
                 <button type="submit" class="btn btn-default">Save</button>
                 <a href="<?php echo STUDENT_URL . 'feedback' ?>" class="btn btn-default">Cancel</a>
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group show_paramerters">
             Fields marked with  <span class="text-danger">*</span>  are mandatory.
         </div>
     </form>

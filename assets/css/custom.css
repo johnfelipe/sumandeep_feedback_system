@@ -47,3 +47,6 @@ label.error { color: #b94a48;}
     color: #ffffff;
 }
 
+#ui-datepicker-div .ui-datepicker-current{
+    display: none !important;
+}
