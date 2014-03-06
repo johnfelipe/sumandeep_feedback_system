@@ -75,5 +75,12 @@ $route['admin/feedback_parameter/role/(:num)'] = "admin/feedback_parameter/chang
 
 //Topic 
 $route['admin/topic/(:num)/(:num)'] = "admin/topic/index/$1/$2";
+
+//Change Password Student
+$route['student/password_change'] = "student/profile/changePassword";
+
+//Change Password faculty
+$route['faculty/password_change'] = "faculty/profile/changePassword";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -62,7 +62,7 @@ if (!function_exists('get_current_date_time')) {
 if (!function_exists('get_time_zone')) {
 
     function get_time_zone() {
-        $timeZone = '';
+        $timeZone = 'UP45';
         return $timeZone;
     }
 
@@ -71,7 +71,7 @@ if (!function_exists('get_time_zone')) {
 if (!function_exists('get_daylight_setting')) {
 
     function get_daylight_setting() {
-        $daylight = '0';
+        $daylight = '1';
         return $daylight;
     }
 

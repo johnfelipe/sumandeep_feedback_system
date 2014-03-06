@@ -65,6 +65,8 @@
                     <div class="collapse navbar-collapse padding-killer">
                         <ul class="nav navbar-nav">
                             <li><a href="<?php echo FACULTY_URL . 'feedback' ?>">Feedback</a></li>
+                            <li><a href="<?php echo FACULTY_URL . 'profile' ?>">Profile</a></li>
+                            <li><a href="<?php echo FACULTY_URL . 'password_change' ?>">Change Password</a></li>
                         </ul>
 
                         <ul class="nav navbar-nav pull-right">

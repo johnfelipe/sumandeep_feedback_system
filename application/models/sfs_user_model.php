@@ -48,7 +48,7 @@ Class sfs_user_model extends CI_model {
 
         if ($this->fullname != '')
             $arr['fullname'] = $this->fullname;
-        
+
         if ($this->email != '')
             $arr['email'] = $this->email;
 
@@ -137,15 +137,28 @@ Class sfs_user_model extends CI_model {
     }
 
     public function check_login() {
-        $this->db->or_where('username', $this->input->post('email_address'));
+        $this->db->where('username', $this->input->post('email_address'));
         $this->db->where('password', md5($this->input->post('password')));
         $query = $this->db->get($this->table_name);
         $query->result();
         if ($query->num_rows() == 1) {
-            return $query->result();
+            $result = $query->result();
+            $this->insertLog($result);
+            return $result;
         } else {
             return false;
         }
+    }
+
+    function insertLog($user_detail) {
+        if ($user_detail[0]->role == 'F' || $user_detail[0]->role == 'S') {
+            $this->load->model('sfs_login_log_model');
+            $obj = new sfs_login_log_model();
+            $obj->userid = $user_detail[0]->userid;
+            $obj->date_time = get_current_date_time()->get_date_time_for_db();
+            $obj->insertData();
+        }
+        return true;
     }
 
     public function check_mail($randid, $email_address) {
