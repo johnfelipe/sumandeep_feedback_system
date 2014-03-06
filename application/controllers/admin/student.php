@@ -13,11 +13,11 @@ class student extends CI_Controller {
         $this->load->model('sfs_course_model');
         $this->load->model('sfs_semester_model');
         $this->load->model('sfs_assign_student_model');
-        
+
         $session = $this->session->userdata('feedback_session');
         if (empty($session)) {
             $this->session->set_flashdata('error', 'Login First');
-           redirect(base_url() .'login', 'refresh');
+            redirect(base_url() . 'login', 'refresh');
         }
     }
 
@@ -64,6 +64,7 @@ class student extends CI_Controller {
 
         $obj->username = $this->input->post('student_username');
         $obj->fullname = $this->input->post('student_name');
+        $obj->email = $this->input->post('email');
         $obj->status = $this->input->post('status');
         $obj->role = 'S';
 
@@ -86,7 +87,7 @@ class student extends CI_Controller {
             } else if (is_array($check_assign) && count($check_assign) == 0) {
                 $obj_assign->insertData();
             }
-            
+
             if ($check == true) {
                 $this->session->set_flashdata('success', 'Update the Data Successfully');
             } else {
@@ -185,6 +186,40 @@ class student extends CI_Controller {
 
         $data['details'] = $main;
         $this->admin_layout->view('admin/student/view_feedback', $data);
+    }
+
+    function checkusername($userid) {
+        $get = $this->sfs_user_model->getWhere(array('username' => urldecode($_GET['student_username'])));
+        if ($userid == 0) {
+            if (count($get) == 1) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if (count($get) == 1 && $get[0]->userid != $userid) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
+    }
+
+    function checkemail($userid) {
+        $get = $this->sfs_user_model->getWhere(array('email' => urldecode($_GET['email'])));
+        if ($userid == 0) {
+            if (count($get) == 1) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if (count($get) == 1 && $get[0]->userid != $userid) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
     }
 
 }

@@ -9,6 +9,7 @@ Class sfs_user_model extends CI_model {
     public $username;
     public $password;
     public $fullname;
+    public $email;
     public $role;
     public $status;
     private $table_name = 'sfs_user';
@@ -28,6 +29,7 @@ Class sfs_user_model extends CI_model {
         $new->username = $old->username;
         $new->password = $old->password;
         $new->fullname = $old->fullname;
+        $new->email = $old->email;
         $new->role = $old->role;
         $new->status = $old->status;
         return $new;
@@ -46,6 +48,9 @@ Class sfs_user_model extends CI_model {
 
         if ($this->fullname != '')
             $arr['fullname'] = $this->fullname;
+        
+        if ($this->email != '')
+            $arr['email'] = $this->email;
 
         if ($this->role != '')
             $arr['role'] = $this->role;

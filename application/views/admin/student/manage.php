@@ -1,20 +1,41 @@
+<?php
+    $userid = 0;
+
+if (@$semester_detail[0]->sid != '') {
+    if (@$student_detail[0]->userid != '') {
+        $userid = @$student_detail[0]->userid;
+    }
+}
+?>
 <script>
     //<![CDATA[
     $(document).ready(function() {
         $("#manage_student").validate({
             rules: {
+                student_username: {
+                    remote: '<?php echo ADMIN_URL . 'student/checkusername/'. $userid; ?>'
+                },
+                email: {
+                    remote: '<?php echo ADMIN_URL . 'student/checkemail/' . $userid; ?>'
+                },
                 confirm_password: {
                     equalTo: "#password"
                 }
-            }
+            },
+            messages: {
+                student_username: {
+                    remote: 'The Username already exit.'
+                },
+                email: {
+                    remote: 'The Email address already exit'
+                },
+                confirm_password: {
+                    equalTo: 'Please enter the SAME PASSWORD again'
+                }
+            },
         });
-<?php
-if (@$semester_detail[0]->sid != '') {
-    $userid = 0;
-    if (@$student_detail[0]->userid != '') {
-        $userid = @$student_detail[0]->userid;
-    }
-    ?>
+
+<?php if (@$semester_detail[0]->sid != '') { ?>
             getSemester(<?php echo @$semester_detail[0]->cid . ',' . $userid; ?>);
 <?php } ?>
 
@@ -71,6 +92,15 @@ if (@$semester_detail[0]->sid != '') {
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="question" class="col-md-2 control-label">
+                Email Address
+                <span class="text-danger">&nbsp;</span>
+            </label>
+            <div class="col-md-4">
+                <input type="email" name="email"  value="<?php echo @$student_detail[0]->email; ?>" class="form-control" placeholder="Email Address" autocomplete="off"/>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">
