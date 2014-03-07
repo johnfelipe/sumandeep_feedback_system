@@ -103,7 +103,9 @@ class login_report extends CI_Controller {
         }
 
         if ($date_from != 'null' && $date_from !== NULL) {
-            $condition .= ' AND sfs_user.userid not in (select IFNULL(GROUP_CONCAT(distinct(userid)),0) as userid from sfs_login_log where date(date_time) BETWEEN "' . date('Y-m-d', strtotime($date_from)) . '" AND "' . date('Y-m-d', strtotime($date_from)) . '")';
+            $res = $this->db->query('select IFNULL(GROUP_CONCAT(distinct(userid)),0) as userid from sfs_login_log where date(date_time) BETWEEN "' . date('Y-m-d', strtotime($date_from)) . '" AND "' . date('Y-m-d', strtotime($date_from)) . '"');
+            $r = $res->result();
+            $condition .= ' AND sfs_user.userid not in ('.$r[0]->userid.')';
         }
 
         $this->load->library('datatable');
