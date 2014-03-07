@@ -27,6 +27,9 @@
         <script src="<?php echo JS_URL; ?>jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>DT_bootstrap.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.raty.js" type="text/javascript"></script>
+        <script src="<?php echo JS_URL; ?>jquery-ui.js" type="text/javascript"></script>
+        <script src="<?php echo JS_URL; ?>jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+        
         <script type="text/javascript">
             var http_host_js = '<?php echo ADMIN_URL; ?>';
         </script>
@@ -63,6 +66,24 @@
                             <li><a href="<?php echo ADMIN_URL . 'faculty' ?>">Faculty</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'student' ?>">Student</a></li>
                             <li><a href="<?php echo ADMIN_URL . 'feedback_parameter' ?>">Feedback Parameters</a></li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#">Login Reports</a>
+                                        <ul class="dropdown-menu">                                           
+                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/student' ?>">Student</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/faculty' ?>">Faculty</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="<?php echo ADMIN_URL . 'report/feedback' ?>">Feedback</a></li>
+                                </ul>
+                            </li> 
+
                         </ul>
 
                         <ul class="nav navbar-nav pull-right">
