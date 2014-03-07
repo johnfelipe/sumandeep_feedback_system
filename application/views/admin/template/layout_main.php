@@ -76,8 +76,10 @@
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#">Login Reports</a>
                                         <ul class="dropdown-menu">                                           
-                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/student' ?>">Student</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/student' ?>">Login Student</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_student' ?>">No Login Student</a></li>
                                             <li><a href="<?php echo ADMIN_URL . 'report/login/view/faculty' ?>">Faculty</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_faculty' ?>">No Login Faculty</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="<?php echo ADMIN_URL . 'report/feedback' ?>">Feedback</a></li>

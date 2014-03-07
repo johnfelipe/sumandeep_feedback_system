@@ -22,10 +22,18 @@ class login_report extends CI_Controller {
             $data['role'] = 'S';
             $data['user_details'] = $this->sfs_user_model->getWhere(array('role' => 'S'));
             $this->admin_layout->view('admin/reports/login', $data);
+        } else if ($role == 'no_student') {
+            $data['role'] = 'S';
+            $data['user_details'] = $this->sfs_user_model->getWhere(array('role' => 'S'));
+            $this->admin_layout->view('admin/reports/no_login', $data);
         } else if ($role == 'faculty') {
             $data['role'] = 'F';
             $data['user_details'] = $this->sfs_user_model->getWhere(array('role' => 'F'));
             $this->admin_layout->view('admin/reports/login', $data);
+        } else if ($role == 'no_faculty') {
+            $data['role'] = 'F';
+            $data['user_details'] = $this->sfs_user_model->getWhere(array('role' => 'F'));
+            $this->admin_layout->view('admin/reports/no_login', $data);
         } else {
             redirect(ADMIN_URL . 'dashboard', 'refresh');
         }
@@ -43,7 +51,7 @@ class login_report extends CI_Controller {
         }
 
         if (($date_from != 'null' && $date_from !== NULL) && ($date_to != 'null' && $date_to !== NULL)) {
-            $condition .= ' AND date(sfs_login_log.date_time) BETWEEN "' . date('Y-m-d', strtotime($date_from )). '" AND "' . date('Y-m-d', strtotime($date_to )) . '"';
+            $condition .= ' AND date(sfs_login_log.date_time) BETWEEN "' . date('Y-m-d', strtotime($date_from)) . '" AND "' . date('Y-m-d', strtotime($date_to)) . '"';
         }
 
 
@@ -70,6 +78,49 @@ class login_report extends CI_Controller {
                 $temp_time .= date('H:i a', strtotime($t)) . '<br />';
             }
             $temp_arr[] = $temp_time;
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    function getJsonForNoLogin($role, $userid, $date_from) {
+        $condition = '';
+
+        if ($role == 'S') {
+            $select = array('fullname', 'semester_name', 'batch', 'course_name');
+            $table = " sfs_user, sfs_semester, sfs_course, sfs_assign_student";
+            $condition = 'WHERE sfs_user.userid = sfs_assign_student.studentid AND sfs_assign_student.sid = sfs_semester.sid  AND sfs_semester.cid = sfs_course.cid AND sfs_user.role = "S"';
+        } else if ($role == 'F') {
+            $select = array('fullname');
+            $table = " sfs_user";
+            $condition = 'WHERE sfs_user.role = "F"';
+        }
+
+
+        if ($userid != 'null' && $userid !== NULL) {
+            $condition .= ' AND sfs_user.userid =  "' . $userid . '"';
+        }
+
+        if ($date_from != 'null' && $date_from !== NULL) {
+            $condition .= ' AND sfs_user.userid not in (select IFNULL(GROUP_CONCAT(distinct(userid)),0) as userid from sfs_login_log where date(date_time) BETWEEN "' . date('Y-m-d', strtotime($date_from)) . '" AND "' . date('Y-m-d', strtotime($date_from)) . '")';
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = $select;
+        $this->datatable->eColumns = array('sfs_user.userid');
+        $this->datatable->sIndexColumn = "sfs_user.userid";
+        $this->datatable->sTable = $table;
+        $this->datatable->myWhere = $condition;
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['fullname'];
+            if ($role == 'S') {
+                $temp_arr[] = $aRow['semester_name'] . ' (' . $aRow['batch'] . ')';
+                $temp_arr[] = $aRow['course_name'];
+            }
             $this->datatable->output['aaData'][] = $temp_arr;
         }
         echo json_encode($this->datatable->output);

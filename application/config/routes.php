@@ -86,6 +86,7 @@ $route['faculty/password_change'] = "faculty/profile/changePassword";
 //reports
 $route['admin/report/login/view/(:any)'] = "admin/login_report/index/$1";
 $route['admin/report/login/getJson/(:any)'] = "admin/login_report/getJson/$1";
+$route['admin/report/login/getJsonForNoLogin/(:any)'] = "admin/login_report/getJsonForNoLogin/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
