@@ -76,7 +76,7 @@
     <hr>
 
     <form action="<?php echo STUDENT_URL . 'feedback/save' ?>" method="post" id="manage" class="form-horizontal">
-        <div class="col-md-12 pull-left">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label"></label>
@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
@@ -158,7 +158,7 @@
 
 
 
-        <div class="col-md-12 pull-left">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
@@ -188,7 +188,7 @@
         <div class="col-md-12" id="dispaly_error" style="display: none">
             <h3 class="text-center text-danger">Feedback already given for selected Topic and Time !!</h3>
         </div>
-        <div class="col-md-12 show_paramerters">
+        <div class="row show_paramerters">
             <table class="table table-bordered table-striped">
                 <tr>
                     <th>Sr No.</th>

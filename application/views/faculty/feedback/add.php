@@ -130,7 +130,7 @@
     <hr>
 
     <form action="<?php echo FACULTY_URL . 'feedback/save' ?>" method="post" id="manage" class="form-horizontal">
-        <div class="col-md-12 pull-left">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label"></label>
@@ -151,7 +151,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 pull-left">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
@@ -184,7 +184,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
@@ -214,7 +214,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
@@ -241,7 +241,7 @@
         </div>
         <div class="clear"></div>
 
-        <div class="col-md-12" id="student_list">
+        <div class="row" id="student_list">
         </div>
 
 

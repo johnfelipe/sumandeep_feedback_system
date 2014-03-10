@@ -79,7 +79,24 @@ class feedback extends CI_Controller {
 
             $obj_master = new sfs_student_feedback_master_model();
             $feedback_id = $obj_master->getWhere(array('sid' => $sid, 'subjectid' => $subjectid));
-            var_dump($feedback_id);
+
+            $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
+            $student_details = array();
+            foreach ($student_list as $value) {
+                $obj_detail = new sfs_student_feedback_details_model();
+                $details = $obj_detail->getAverageANDMedianOfSingleStudent($feedback_id[0]->student_feedback_id, $value->userid);
+                $temp = array();
+                $temp['name'] = $value->fullname;
+                $temp['average'] = $details->average;
+                $temp['median'] = $details->median;
+                $student_details[] = $temp;
+            }
+
+            $data['sem_detials'] = $this->sfs_semester_model->getWhere(array('sid' => $sid));
+            $data['course_detials'] = $this->sfs_course_model->getWhere(array('cid' => $data['sem_detials'][0]->cid));
+            $data['sub_detials'] = $this->sfs_subject_model->getWhere(array('subjectid' => $subjectid));
+            $data['student_details'] = $student_details;
+            $this->admin_layout->view('admin/feedback/student_subjectwise_feedback', $data);
         }
     }
 

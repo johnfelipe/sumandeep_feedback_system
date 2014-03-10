@@ -130,34 +130,64 @@ Class sfs_student_feedback_details_model extends CI_model {
             return FALSE;
         }
     }
-    
-    function getDetailFeedback($student_feedback_id){
+
+    function getDetailFeedback($student_feedback_id) {
         $sql = 'SELECT u.fullname, p.parameter_name, f.ratting FROM sfs_student_feedback_details f, sfs_user u, sfs_feedback_parameters p WHERE f.studentid=u.userid AND f.parameterid=p.paramterid AND f.student_feedback_id = ' . $student_feedback_id;
         $res = $this->db->query($sql);
         return $res->result();
     }
-    
-    static function getFeedbackRate($feedbackid, $studentid, $parameterid){
+
+    static function getFeedbackRate($feedbackid, $studentid, $parameterid) {
         $ci = get_instance();
         $ci->db->select(' * ');
         $ci->db->from('sfs_student_feedback_details');
-        $ci->db->where(array('student_feedback_id'=>$feedbackid, 'studentid'=>$studentid, 'parameterid'=>$parameterid));
+        $ci->db->where(array('student_feedback_id' => $feedbackid, 'studentid' => $studentid, 'parameterid' => $parameterid));
         $res = $ci->db->get()->result();
-        
-        if(count($res) == 1){
+
+        if (count($res) == 1) {
             return $res[0]->ratting;
-        }else{
+        } else {
             return 0;
         }
-        
     }
-    
-    function getDistincitFeedbackID($userid){
+
+    function getDistincitFeedbackID($userid) {
         $this->db->select('Distinct(student_feedback_id) as student_feedback_id');
         $this->db->from($this->table_name);
         $this->db->where('studentid', $userid);
         $res = $this->db->get()->result();
         return $res;
+    }
+
+    function getAverageANDMedianOfSingleStudent($feedbackid, $studentid) {
+        $this->db->select('ratting, AVG(ratting) AS average');
+        $this->db->from($this->table_name);
+        $this->db->where(array('studentid' => $studentid, 'student_feedback_id' => $feedbackid));
+        $res = $this->db->get()->result();
+        $temp = array();
+        $i = 1;
+        foreach ($res as $r) {
+            $temp[$i] = $r->ratting;
+            $i++;
+        }
+
+        sort($temp, 1);
+
+
+        $count = count($temp) / 2;
+
+        if (is_float($count)) {
+            $count = floor($count);
+            $median = $temp[$count];
+        } else {
+            $median = ($temp[$count - 1] + $temp[$count]) / 2;
+        }
+
+        $obj = new stdClass();
+        $obj->average = round($res[0]->average, 2);
+        $obj->median = $median;
+        
+        return $obj;
     }
 
 }
