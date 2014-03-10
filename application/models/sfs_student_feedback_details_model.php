@@ -159,10 +159,20 @@ Class sfs_student_feedback_details_model extends CI_model {
         return $res;
     }
 
-    function getAverageANDMedianOfSingleStudent($feedbackid, $studentid) {
-        $this->db->select('ratting, AVG(ratting) AS average');
+    function getAverageOfSingleStudent($feedbackid, $studentid) {
+        $where = 'studentid = ' . $studentid . ' AND student_feedback_id IN (' . $feedbackid . ')';
+        $this->db->select_avg('ratting');
         $this->db->from($this->table_name);
-        $this->db->where(array('studentid' => $studentid, 'student_feedback_id' => $feedbackid));
+        $this->db->where($where, NULL, FALSE);
+        $res = $this->db->get()->result();
+        return round($res[0]->ratting, 1);
+    }
+
+    function getMedianOfSingleStudent($feedbackid, $studentid) {
+        $where = 'studentid = ' . $studentid . ' AND student_feedback_id IN (' . $feedbackid . ')';
+        $this->db->select('ratting');
+        $this->db->from($this->table_name);
+        $this->db->where($where, NULL, FALSE);
         $res = $this->db->get()->result();
         $temp = array();
         $i = 1;
@@ -173,7 +183,6 @@ Class sfs_student_feedback_details_model extends CI_model {
 
         sort($temp, 1);
 
-
         $count = count($temp) / 2;
 
         if (is_float($count)) {
@@ -183,11 +192,8 @@ Class sfs_student_feedback_details_model extends CI_model {
             $median = ($temp[$count - 1] + $temp[$count]) / 2;
         }
 
-        $obj = new stdClass();
-        $obj->average = round($res[0]->average, 2);
-        $obj->median = $median;
-        
-        return $obj;
+
+        return $median;
     }
 
 }

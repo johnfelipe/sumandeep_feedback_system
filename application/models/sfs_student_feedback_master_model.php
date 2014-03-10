@@ -47,7 +47,7 @@ Class sfs_student_feedback_master_model extends CI_model {
 
         if ($this->sid != '')
             $arr['sid'] = $this->sid;
-        
+
         if ($this->subjectid != '')
             $arr['subjectid'] = $this->subjectid;
 
@@ -145,15 +145,19 @@ Class sfs_student_feedback_master_model extends CI_model {
             return FALSE;
         }
     }
-    
-    function getMasterFeedback($student_feedback_id){
+
+    function getMasterFeedback($student_feedback_id) {
         $sql = 'SELECT s.subject_name, t.topic_name, f.*,f.student_feedback_id, c.course_name, sem.semester_name, sem.batch, sem.sid FROM sfs_student_feedback_master f, sfs_subject s, sfs_subject_topic t, sfs_course c, sfs_semester sem WHERE f.subjectid=s.subjectid AND f.topicid=t.topicid AND c.cid=sem.cid AND sem.sid=s.sid AND f.student_feedback_id = ' . $student_feedback_id;
         $res = $this->db->query($sql);
         return $res->result();
     }
-    
-    function getSingleSubjectAllStudentFeedback($subjectid){
-        
+
+    function getFeedbackId($where) {
+        $this->db->select('GROUP_CONCAT(student_feedback_id) as student_feedback_id');
+        $this->db->from($this->table_name);
+        $this->db->where($where);
+        $res = $this->db->get()->result();
+        return str_replace("'", "",$res[0]->student_feedback_id);
     }
 
 }
