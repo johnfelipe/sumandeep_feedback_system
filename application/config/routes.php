@@ -88,5 +88,10 @@ $route['admin/report/login/view/(:any)'] = "admin/login_report/index/$1";
 $route['admin/report/login/getJson/(:any)'] = "admin/login_report/getJson/$1";
 $route['admin/report/login/getJsonForNoLogin/(:any)'] = "admin/login_report/getJsonForNoLogin/$1";
 
+//Feedback
+$route['admin/report/feedback/student'] = "admin/feedback/ViewStudentFeedback";
+$route['admin/report/feedback/student_subjectwise'] = "admin/feedback/subjectWiseStudentFeedBack";
+$route['admin/report/feedback/student_subjectwiselistener'] = "admin/feedback/subjectwiselistener";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

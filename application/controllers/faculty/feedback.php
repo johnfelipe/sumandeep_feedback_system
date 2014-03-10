@@ -77,24 +77,13 @@ class feedback extends CI_Controller {
     }
 
     function getTopicDetails($subjectid) {
-        $session = $this->session->userdata('feedback_session');
-
-        $feedbacks = $this->sfs_student_feedback_master_model->getWhere(array('feedback_date' => get_current_date_time()->get_date_for_db(), 'facultyid' => $session->userid));
-
-        $temp = array();
-        foreach ($feedbacks as $feedback) {
-            $temp[] = $feedback->topicid;
-        }
-
         $records = $this->sfs_subject_topic_model->getWhere(array('subjectid' => $subjectid));
         echo '<option value="">Select Topic</option>';
         foreach ($records as $value) {
-            if (!in_array($value->topicid, $temp)) {
-                echo '<option value="' . $value->topicid . '">' . $value->topic_name . '</option>';
-            }
+            echo '<option value="' . $value->topicid . '">' . $value->topic_name . '</option>';
         }
     }
-    
+
     function checkTime() {
         $session = $this->session->userdata('feedback_session');
         $get = $this->sfs_student_feedback_master_model->getWhere(array('facultyid' => $session->userid, 'subjectid' => $_POST['subjectid'], 'topicid' => $_POST['topicid'], 'topic_time_from' => $_POST['topic_time_from'], 'topic_time_to' => $_POST['topic_time_to'], 'feedback_date' => get_current_date_time()->get_date_for_db()));
@@ -113,47 +102,19 @@ class feedback extends CI_Controller {
         $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
         $session = $this->session->userdata('feedback_session');
 
-        $where_master = array(
-            'facultyid' => $session->userid,
-            'subjectid' => $this->input->post('subjectid'),
-            'topicid' => $this->input->post('topicid'),
-            'feedback_date' => date('Y-m-d', strtotime($this->input->post('feedback_date'))),
-            'topic_time_from' => date('H:i', strtotime($this->input->post('topic_time_from'))),
-            'topic_time_to' => date('H:i', strtotime($this->input->post('topic_time_to'))),
-        );
-
         $obj_master = new sfs_student_feedback_master_model();
-        $check_master = $obj_master->getWhere($where_master);
-        $master_id = 0;
-
         $obj_master->facultyid = $session->userid;
+        $obj_master->sid = $this->input->post('sid');
         $obj_master->subjectid = $this->input->post('subjectid');
         $obj_master->topicid = $this->input->post('topicid');
         $obj_master->feedback_date = date('Y-m-d', strtotime($this->input->post('feedback_date')));
         $obj_master->topic_time_from = date('H:i', strtotime($this->input->post('topic_time_from')));
         $obj_master->topic_time_to = date('H:i', strtotime($this->input->post('topic_time_to')));
-
-        if (is_array($check_master) && count($check_master) == 1) {
-            $obj_master->student_feedback_id = $check_master[0]->student_feedback_id;
-            $obj_master->updateData();
-            $master_id = $check_master[0]->student_feedback_id;
-        } else {
-            $master_id = $obj_master->insertData();
-        }
-
-
+        $master_id = $obj_master->insertData();
 
         foreach ($student_list as $student) {
             foreach ($parameters as $param) {
-                $where_detail = array(
-                    'student_feedback_id' => $master_id,
-                    'studentid' => $student->userid,
-                    'parameterid' => $param->paramterid,
-                );
-
                 $obj_detail = new sfs_student_feedback_details_model();
-                $check_detail = $obj_detail->getWhere($where_detail);
-
                 $obj_detail->student_feedback_id = $master_id;
                 $obj_detail->studentid = $student->userid;
                 $obj_detail->parameterid = $param->paramterid;
@@ -163,13 +124,7 @@ class feedback extends CI_Controller {
                 } else {
                     $obj_detail->ratting = '1';
                 }
-
-                if (is_array($check_detail) && count($check_detail) == 1) {
-                    $obj_detail->student_feedback_detail_id = $check_detail[0]->student_feedback_detail_id;
-                    $obj_detail->updateData();
-                } else {
-                    $obj_detail->insertData();
-                }
+                $obj_detail->insertData();
             }
         }
 

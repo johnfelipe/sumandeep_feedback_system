@@ -7,6 +7,7 @@ Class sfs_student_feedback_master_model extends CI_model {
 
     public $student_feedback_id;
     public $facultyid;
+    public $sid;
     public $subjectid;
     public $topicid;
     public $feedback_date;
@@ -27,6 +28,7 @@ Class sfs_student_feedback_master_model extends CI_model {
         $new = new sfs_student_feedback_master_model();
         $new->student_feedback_id = $old->student_feedback_id;
         $new->facultyid = $old->facultyid;
+        $new->sid = $old->sid;
         $new->subjectid = $old->subjectid;
         $new->topicid = $old->topicid;
         $new->feedback_date = $old->feedback_date;
@@ -43,6 +45,9 @@ Class sfs_student_feedback_master_model extends CI_model {
         if ($this->facultyid != '')
             $arr['facultyid'] = $this->facultyid;
 
+        if ($this->sid != '')
+            $arr['sid'] = $this->sid;
+        
         if ($this->subjectid != '')
             $arr['subjectid'] = $this->subjectid;
 
@@ -145,6 +150,10 @@ Class sfs_student_feedback_master_model extends CI_model {
         $sql = 'SELECT s.subject_name, t.topic_name, f.*,f.student_feedback_id, c.course_name, sem.semester_name, sem.batch, sem.sid FROM sfs_student_feedback_master f, sfs_subject s, sfs_subject_topic t, sfs_course c, sfs_semester sem WHERE f.subjectid=s.subjectid AND f.topicid=t.topicid AND c.cid=sem.cid AND sem.sid=s.sid AND f.student_feedback_id = ' . $student_feedback_id;
         $res = $this->db->query($sql);
         return $res->result();
+    }
+    
+    function getSingleSubjectAllStudentFeedback($subjectid){
+        
     }
 
 }

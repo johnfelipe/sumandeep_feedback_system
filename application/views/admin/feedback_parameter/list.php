@@ -17,15 +17,15 @@
         var current_id = $(ele).attr('id');
         var parent = $(ele).parent().parent();
         var status = '';
-        if($('.parameter-status').html() == '<span class="label label-success">Active</span>'){
+        if ($('.parameter-status').html() == '<span class="label label-success">Active</span>') {
             status = 'Deactive';
-        }else if($('.parameter-status').html() == '<span class="label label-danger">Deactive</span>'){
+        } else if ($('.parameter-status').html() == '<span class="label label-danger">Deactive</span>') {
             status = 'Active';
         }
-        
+
         $.confirm({
             'title': 'Manage Parameter',
-            'message': 'Do you Want to '+ status + ' the Parameter ?',
+            'message': 'Do you Want to ' + status + ' the Parameter ?',
             'buttons': {
                 'Yes': {'class': 'btn btn-default',
                     'action': function() {
@@ -54,20 +54,20 @@
         });
         return false;
     }
-    
+
     function changeRole(ele) {
         var current_id = $(ele).attr('id');
         var parent = $(ele).parent().parent();
         var status = '';
-        if($('.parameter-role').html() == 'Student'){
+        if ($('.parameter-role').html() == 'Student') {
             status = 'Faculty';
-        }else if($('.parameter-role').html() == 'Faculty'){
+        } else if ($('.parameter-role').html() == 'Faculty') {
             status = 'Student';
         }
-        
+
         $.confirm({
             'title': 'Manage Parameter',
-            'message': 'Do you Want to assign this parameter to '+ status + ' ?',
+            'message': 'Do you Want to assign this parameter to ' + status + ' ?',
             'buttons': {
                 'Yes': {'class': 'btn btn-default',
                     'action': function() {
@@ -119,7 +119,7 @@
             echo '<div class="alert alert-success"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('success') . '</div>';
         }
         ?>
-<?php } ?>
+    <?php } ?>
     <table id="list_course" class="table table-bordered">
         <thead>
             <tr align="left">

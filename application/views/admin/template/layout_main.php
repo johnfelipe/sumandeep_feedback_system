@@ -74,15 +74,22 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="#">Login Reports</a>
+                                        <a tabindex="-1" href="#">Login</a>
                                         <ul class="dropdown-menu">                                           
                                             <li><a href="<?php echo ADMIN_URL . 'report/login/view/student' ?>">Login Student</a></li>
                                             <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_student' ?>">No Login Student</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/faculty' ?>">Faculty</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/faculty' ?>">Login Faculty</a></li>
                                             <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_faculty' ?>">No Login Faculty</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="<?php echo ADMIN_URL . 'report/feedback' ?>">Feedback</a></li>
+                                    
+                                     <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#">Feedback</a>
+                                        <ul class="dropdown-menu">                                           
+                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/student' ?>">Student</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty' ?>">Faculty</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li> 
 
