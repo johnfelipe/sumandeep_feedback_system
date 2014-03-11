@@ -145,6 +145,46 @@ Class sfs_faculty_feedback_details_model extends CI_model {
             return 0;
         }
     }
+    
+    function getAverageOfSingleFaculty($feedbackid, $facultyid) {
+        $where = $this->table_name .'.faculty_feedback_id IN (' . $feedbackid . ') AND m.facultyid=' . $facultyid;
+        $this->db->select_avg('ratting');
+        $this->db->from($this->table_name);
+        $this->db->join('sfs_faculty_feedback_master m', $this->table_name.'.faculty_feedback_id = m.faculty_feedback_id');
+        $this->db->where($where, NULL, FALSE);
+        $res = $this->db->get()->result();
+        return round($res[0]->ratting, 1);
+    }
+
+    function getMedianOfSingleFaculty($feedbackid, $facultyid) {
+        $where = $this->table_name .'.faculty_feedback_id IN (' . $feedbackid . ') AND m.facultyid=' . $facultyid;
+        $this->db->select('ratting');
+        $this->db->from($this->table_name);
+        $this->db->join('sfs_faculty_feedback_master m', $this->table_name.'.faculty_feedback_id = m.faculty_feedback_id');
+        $this->db->where($where, NULL, FALSE);
+        $res = $this->db->get()->result();
+        $temp = array();
+        $i = 1;
+        foreach ($res as $r) {
+            $temp[$i] = $r->ratting;
+            $i++;
+        }
+
+        sort($temp, 1);
+
+        $count = count($temp) / 2;
+
+        if (is_float($count)) {
+            $count = floor($count);
+            $median = $temp[$count];
+        } else if(is_int($count) && $count !=0){
+            $median = ($temp[$count - 1] + $temp[$count]) / 2;
+        } else {
+            $median = 0;
+        }
+
+        return $median;
+    }
 
 }
 

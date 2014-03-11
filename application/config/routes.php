@@ -99,6 +99,6 @@ $route['admin/report/feedback/student_facultywiselistener'] = "admin/feedback/fa
 $route['admin/report/feedback/faculty_over_all'] = "admin/feedback/faculty_over_all";
 $route['admin/report/feedback/faculty_studentwise'] = "admin/feedback/studentWiseFacultyFeedBack";
 $route['admin/report/feedback/facultyOverAllListener'] = "admin/feedback/facultyOverAllListener";
-
+$route['admin/report/feedback/facultyStudentWiseListener'] = "admin/feedback/facultyStudentWiseListener";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -23,6 +23,8 @@ class feedback extends CI_Controller {
         $this->load->model('sfs_assign_faculty_model');
         $this->load->model('sfs_student_feedback_master_model');
         $this->load->model('sfs_student_feedback_details_model');
+        $this->load->model('sfs_faculty_feedback_master_model');
+        $this->load->model('sfs_faculty_feedback_details_model');
     }
 
     public function index() {
@@ -195,6 +197,10 @@ class feedback extends CI_Controller {
         }
     }
 
+    /*
+     * Faculty Feedback Given By Student
+     */
+
     function faculty_over_all() {
         $data['course_details'] = $this->sfs_course_model->getAll();
         $this->admin_layout->view('admin/feedback/faculty_over_all', $data);
@@ -202,10 +208,10 @@ class feedback extends CI_Controller {
 
     function facultyOverAllListener() {
         $sid = $this->input->post('sid');
-        $facultyid = $this->input->post('facultyid');
+        $facultyid = (int)$this->input->post('facultyid');
         $date_from = $this->input->post('date_from');
         $date_to = $this->input->post('date_to');
-        
+
         if (!empty($date_from)) {
             $data['date_from'] = ' (' . $date_from;
             $date_from = date('Y-m-d', strtotime($date_from));
@@ -216,14 +222,109 @@ class feedback extends CI_Controller {
             $date_to = date('Y-m-d', strtotime($date_to));
         }
 
-        $obj_master = new sfs_student_feedback_master_model();
-        $where = ' sid=' . $sid . ' AND facultyid=' . $facultyid;
+        $obj_master = new sfs_faculty_feedback_master_model();
+        $where = ' sid=' . $sid;
+
+        if (!empty($facultyid)) {
+            $where .= ' AND facultyid =' . $facultyid;
+        }
 
         if (!empty($date_from) && !empty($date_to)) {
             $where .= " And feedback_date BETWEEN '$date_from' AND '$date_to'";
         }
 
         $feedback = $obj_master->getFeedbackId($where);
+        if (!is_null($feedback) && !empty($feedback)) {
+            if ($facultyid === 0) {
+                $list = $this->sfs_assign_faculty_model->getSemesterFaculty($sid);
+                $details = array();
+                foreach ($list as $value) {
+                    $obj_detail = new sfs_faculty_feedback_details_model();
+                    $avg = $obj_detail->getAverageOfSingleFaculty($feedback, $value->userid);
+                    $med = $obj_detail->getMedianOfSingleFaculty($feedback, $value->userid);
+                    $temp = array();
+                    $temp['name'] = $value->fullname;
+                    $temp['average'] = $avg;
+                    $temp['median'] = $med;
+                    $details[] = $temp;
+                }
+            } else if ($facultyid !== 0) {
+                $user = $this->sfs_user_model->getWhere(array('userid' => $facultyid));
+                $obj_detail = new sfs_faculty_feedback_details_model();
+                $avg = $obj_detail->getAverageOfSingleFaculty($feedback, $facultyid);
+                $med = $obj_detail->getMedianOfSingleFaculty($feedback, $facultyid);
+                $temp = array();
+                $temp['name'] = $user[0]->fullname;
+                $temp['average'] = $avg;
+                $temp['median'] = $med;
+                $details[] = $temp;
+            }
+
+            $data['sem_detials'] = $this->sfs_semester_model->getWhere(array('sid' => $sid));
+            $data['course_detials'] = $this->sfs_course_model->getWhere(array('cid' => $data['sem_detials'][0]->cid));
+
+            $data['faculty_details'] = $details;
+            $data['label'] = 'Faculty Over All';
+            $this->admin_layout->view('admin/feedback/faculty_feedback', $data);
+        } else {
+            $this->session->set_flashdata('info', 'No Feedback is given');
+            redirect(ADMIN_URL . 'report/feedback/faculty_over_all', 'refresh');
+        }
+    }
+
+    function facultyStudentWiseListener() {
+        $sid = $this->input->post('sid');
+        $student_id = $this->input->post('studentid');
+        $date_from = $this->input->post('date_from');
+        $date_to = $this->input->post('date_to');
+
+        if (!empty($date_from)) {
+            $data['date_from'] = ' (' . $date_from;
+            $date_from = date('Y-m-d', strtotime($date_from));
+        }
+
+        if (!empty($date_to)) {
+            $data['date_to'] = ' : ' . $date_to . ')';
+            $date_to = date('Y-m-d', strtotime($date_to));
+        }
+
+        $obj_master = new sfs_faculty_feedback_master_model();
+        $where = ' sid=' . $sid;
+
+        if (!empty($student_id)) {
+            $where .= " And studentid = '$student_id'";
+        }
+
+        if (!empty($date_from) && !empty($date_to)) {
+            $where .= " And feedback_date BETWEEN '$date_from' AND '$date_to'";
+        }
+
+        $feedback = $obj_master->getFeedbackId($where);
+
+        if (!is_null($feedback) && !empty($feedback)) {
+            $list = $this->sfs_assign_faculty_model->getSemesterFaculty($sid);
+            $details = array();
+            foreach ($list as $value) {
+                $obj_detail = new sfs_faculty_feedback_details_model();
+                $avg = $obj_detail->getAverageOfSingleFaculty($feedback);
+                $med = $obj_detail->getMedianOfSingleFaculty($feedback);
+                $temp = array();
+                $temp['name'] = $value->fullname;
+                $temp['average'] = $avg;
+                $temp['median'] = $med;
+                $details[] = $temp;
+            }
+
+            $data['sem_detials'] = $this->sfs_semester_model->getWhere(array('sid' => $sid));
+            $data['course_detials'] = $this->sfs_course_model->getWhere(array('cid' => $data['sem_detials'][0]->cid));
+
+            $data['faculty_details'] = $details;
+            $data['label'] = 'Faculty Over All';
+            $this->admin_layout->view('admin/feedback/faculty_feedback', $data);
+        } else {
+            $this->session->set_flashdata('info', 'No Feedback is given');
+            redirect(ADMIN_URL . 'report/feedback/faculty_over_all', 'refresh');
+        }
     }
 
 }

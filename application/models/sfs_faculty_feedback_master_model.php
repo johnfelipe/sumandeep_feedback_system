@@ -156,6 +156,18 @@ Class sfs_faculty_feedback_master_model extends CI_model {
         $res = $this->db->query($sql);
         return $res->result();
     }
+    
+    function getFeedbackId($where) {
+        $this->db->select('GROUP_CONCAT(faculty_feedback_id) as faculty_feedback_id');
+        $this->db->from($this->table_name);
+        if (is_array($where)) {
+            $this->db->where($where);
+        } else {
+            $this->db->where($where, NULL, FALSE);
+        }
+        $res = $this->db->get()->result();
+        return str_replace("'", "", $res[0]->faculty_feedback_id);
+    }
 
 }
 
