@@ -30,7 +30,7 @@
     }
     ?>
 
-    <div id="chart2" class="col-md-10" style="height: 300px;"></div>
+    <div id="chart2" class="col-md-10" style="height: 500px;"></div>
 
     <br /><br />
     <table class="table table-bordered">

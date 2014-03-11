@@ -9,7 +9,7 @@
             <a href="<?php echo ADMIN_URL . 'report/feedback/faculty_studentwise'; ?>" class="btn btn-primary btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</a>
         <?php } ?>
         &nbsp;
-        Feedback Report of Students : <?php echo @$label . @$date_from . @$date_to; ?></h3>
+        Feedback Report of Faculty : <?php echo @$label . @$date_from . @$date_to; ?></h3>
     <hr>
 
     <?php
@@ -30,9 +30,8 @@
     }
     ?>
 
-    <div id="chart2" class="col-md-10" style="height: 300px;"></div>
+    <div id="chart2" class="col-md-10" style="height: 500px;"></div>
 
-    <br /><br />
     <table class="table table-bordered">
         <tr>
             <th><?php echo @$course_detials[0]->course_name; ?></th>
@@ -63,8 +62,8 @@
             ?>
             <tr>
                 <td><?php echo $details['name']; ?> </td>
-                <td><?php echo $details['average']; ?> </td>
-                <td><?php echo $details['median']; ?> </td>
+                <th><?php echo $details['average'] == 0 ? '<span class="text-danger">Absent</span>' : $details['average']; ?> </th>
+                <th><?php echo $details['median'] == 0 ? '<span class="text-danger">Absent</span>' : $details['median']; ?> </th>
             </tr>
         <?php } ?> 
     </table>
@@ -92,7 +91,7 @@
                 xaxis: {
                     renderer: $.jqplot.CategoryAxisRenderer,
                     ticks: ticks,
-                    label: 'Students',
+                    label: 'Faculty',
                     labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
                     tickRenderer: $.jqplot.CanvasAxisTickRenderer,
                     tickOptions: {

@@ -43,9 +43,13 @@ class feedback extends CI_Controller {
         }
     }
 
-    function getStudentDetails($sid) {
+    function getStudentDetails($sid, $view = 'F') {
         $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
-        echo '<option value="0">All Student</option>';
+        if ($view == 'F') {
+            echo '<option value="0">All Student</option>';
+        } else {
+            echo '<option value="">Select Student</option>';
+        }
         foreach ($student_list as $value) {
             echo '<option value="' . $value->userid . '">' . $value->fullname . '</option>';
         }
@@ -208,7 +212,7 @@ class feedback extends CI_Controller {
 
     function facultyOverAllListener() {
         $sid = $this->input->post('sid');
-        $facultyid = (int)$this->input->post('facultyid');
+        $facultyid = (int) $this->input->post('facultyid');
         $date_from = $this->input->post('date_from');
         $date_to = $this->input->post('date_to');
 
@@ -272,6 +276,11 @@ class feedback extends CI_Controller {
         }
     }
 
+    function studentWiseFacultyFeedBack() {
+        $data['course_details'] = $this->sfs_course_model->getAll();
+        $this->admin_layout->view('admin/feedback/faculty_studentwise', $data);
+    }
+
     function facultyStudentWiseListener() {
         $sid = $this->input->post('sid');
         $student_id = $this->input->post('studentid');
@@ -300,14 +309,14 @@ class feedback extends CI_Controller {
         }
 
         $feedback = $obj_master->getFeedbackId($where);
-
+        
         if (!is_null($feedback) && !empty($feedback)) {
             $list = $this->sfs_assign_faculty_model->getSemesterFaculty($sid);
             $details = array();
             foreach ($list as $value) {
                 $obj_detail = new sfs_faculty_feedback_details_model();
-                $avg = $obj_detail->getAverageOfSingleFaculty($feedback);
-                $med = $obj_detail->getMedianOfSingleFaculty($feedback);
+                $avg = $obj_detail->getAverageOfSingleFaculty($feedback, $value->userid);
+                $med = $obj_detail->getMedianOfSingleFaculty($feedback, $value->userid);
                 $temp = array();
                 $temp['name'] = $value->fullname;
                 $temp['average'] = $avg;
@@ -319,11 +328,11 @@ class feedback extends CI_Controller {
             $data['course_detials'] = $this->sfs_course_model->getWhere(array('cid' => $data['sem_detials'][0]->cid));
 
             $data['faculty_details'] = $details;
-            $data['label'] = 'Faculty Over All';
+            $data['label'] = 'Student Wise';
             $this->admin_layout->view('admin/feedback/faculty_feedback', $data);
         } else {
             $this->session->set_flashdata('info', 'No Feedback is given');
-            redirect(ADMIN_URL . 'report/feedback/faculty_over_all', 'refresh');
+            redirect(ADMIN_URL . 'report/feedback/faculty_studentwise', 'refresh');
         }
     }
 
