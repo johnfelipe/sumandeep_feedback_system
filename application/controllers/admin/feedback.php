@@ -139,15 +139,23 @@ class feedback extends CI_Controller {
         $date_to = $this->input->post('date_to');
 
         if (!empty($date_from)) {
+            $data['date_from'] = ' (' . $date_from;
             $date_from = date('Y-m-d', strtotime($date_from));
         }
 
         if (!empty($date_to)) {
+            $data['date_to'] = ' : ' . $date_to . ')';
             $date_to = date('Y-m-d', strtotime($date_to));
         }
 
         $obj_master = new sfs_student_feedback_master_model();
-        $feedback = $obj_master->getFeedbackId(array('sid' => $sid, 'facultyid' => $facultyid));
+        $where = ' sid=' . $sid . ' AND facultyid=' . $facultyid;
+
+        if (!empty($date_from) && !empty($date_to)) {
+            $where .= " And feedback_date BETWEEN '$date_from' AND '$date_to'";
+        }
+
+        $feedback = $obj_master->getFeedbackId($where);
 
         if (!is_null($feedback) && !empty($feedback)) {
             $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
@@ -165,8 +173,8 @@ class feedback extends CI_Controller {
 
             $data['sem_detials'] = $this->sfs_semester_model->getWhere(array('sid' => $sid));
             $data['course_detials'] = $this->sfs_course_model->getWhere(array('cid' => $data['sem_detials'][0]->cid));
-            
-            $data['faculty_detail'] = $this->sfs_user_model->getWhere(array('userid'=>$facultyid));
+
+            $data['faculty_detail'] = $this->sfs_user_model->getWhere(array('userid' => $facultyid));
 
             $data['student_details'] = $student_details;
             $data['label'] = 'Faculty Wise';

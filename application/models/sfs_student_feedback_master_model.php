@@ -155,9 +155,13 @@ Class sfs_student_feedback_master_model extends CI_model {
     function getFeedbackId($where) {
         $this->db->select('GROUP_CONCAT(student_feedback_id) as student_feedback_id');
         $this->db->from($this->table_name);
-        $this->db->where($where);
+        if (is_array($where)) {
+            $this->db->where($where);
+        } else {
+            $this->db->where($where, NULL, FALSE);
+        }
         $res = $this->db->get()->result();
-        return str_replace("'", "",$res[0]->student_feedback_id);
+        return str_replace("'", "", $res[0]->student_feedback_id);
     }
 
 }

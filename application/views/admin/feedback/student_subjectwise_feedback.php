@@ -1,6 +1,6 @@
 <link href="<?php echo CSS_URL; ?>jquery.jqplot.css" rel="stylesheet" />
 <div class="col-md-12">
-    <h3>Feedback Report of Students : <?php echo @$label; ?></h3>
+    <h3>Feedback Report of Students : <?php echo @$label . @$date_from . @$date_to; ?></h3>
     <hr>
 
     <?php
@@ -85,7 +85,7 @@
                     labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
                     tickRenderer: $.jqplot.CanvasAxisTickRenderer,
                     tickOptions: {
-                        angle: -30
+                        angle: -90
                     }
                 },
                 yaxis: {
