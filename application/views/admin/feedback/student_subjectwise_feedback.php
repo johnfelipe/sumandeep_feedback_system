@@ -1,6 +1,15 @@
 <link href="<?php echo CSS_URL; ?>jquery.jqplot.css" rel="stylesheet" />
 <div class="col-md-12">
-    <h3>Feedback Report of Students : <?php echo @$label . @$date_from . @$date_to; ?></h3>
+
+
+    <h3>
+        <?php if (@$label == 'Student Wise') { ?> 
+            <a href="<?php echo ADMIN_URL . 'report/feedback/student_subjectwise'; ?>" class="btn btn-primary btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</a>
+        <?php } else if (@$label == 'Faculty Wise') { ?>
+            <a href="<?php echo ADMIN_URL . 'report/feedback/student_facultywise'; ?>" class="btn btn-primary btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</a>
+        <?php } ?>
+        &nbsp;
+        Feedback Report of Students : <?php echo @$label . @$date_from . @$date_to; ?></h3>
     <hr>
 
     <?php

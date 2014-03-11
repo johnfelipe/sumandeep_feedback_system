@@ -86,8 +86,10 @@
                                      <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#">Feedback</a>
                                         <ul class="dropdown-menu">                                           
-                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/student' ?>">Student</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty' ?>">Faculty</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/student_subjectwise' ?>">Student Subject Wise</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/student_facultywise' ?>">Student Faculty Wise</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty_over_all' ?>">Faculty Over All</a></li>
+                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty_studentwise' ?>">Faculty Student Wise</a></li>
                                         </ul>
                                     </li>
                                 </ul>

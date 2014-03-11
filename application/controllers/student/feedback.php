@@ -87,6 +87,7 @@ class feedback extends CI_Controller {
 
         $obj_master = new sfs_faculty_feedback_master_model();
         $obj_master->studentid = $session->userid;
+        $obj_master->sid = $this->input->post('sid');
         $obj_master->facultyid = $this->input->post('facultyid');
         $obj_master->subjectid = $this->input->post('subjectid');
         $obj_master->topicid = $this->input->post('topicid');

@@ -7,6 +7,7 @@ Class sfs_faculty_feedback_master_model extends CI_model {
 
     public $faculty_feedback_id;
     public $studentid;
+    public $sid;
     public $facultyid;
     public $subjectid;
     public $topicid;
@@ -27,6 +28,7 @@ Class sfs_faculty_feedback_master_model extends CI_model {
     function convertObject($old) {
         $new = new sfs_faculty_feedback_master_model();
         $new->faculty_feedback_id = $old->faculty_feedback_id;
+        $new->sid = $old->sid;
         $new->studentid = $old->studentid;
         $new->facultyid = $old->facultyid;
         $new->subjectid = $old->subjectid;
@@ -44,6 +46,9 @@ Class sfs_faculty_feedback_master_model extends CI_model {
 
         if ($this->studentid != '')
             $arr['studentid'] = $this->studentid;
+        
+        if ($this->sid != '')
+            $arr['sid'] = $this->sid;
 
         if ($this->facultyid != '')
             $arr['facultyid'] = $this->facultyid;

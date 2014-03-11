@@ -33,7 +33,7 @@
             var sid = $('#semester_details').val();
             $.ajax({
                 type: 'GET',
-                url: '<?php echo ADMIN_URL; ?>feedback/getFacultyDetails/' + sid,
+                url: '<?php echo ADMIN_URL; ?>feedback/getFacultyDetails/' + sid + '/F',
                 success: function(data)
                 {
 
@@ -50,7 +50,7 @@
     //]]>
 </script>
 <div class="col-md-12">
-    <h3>Feedback Report of Students : Faculty Wise</h3>
+    <h3>Feedback Report of Faculty by Student</h3>
     <hr>
 
     <?php
@@ -71,7 +71,7 @@
     }
     ?>
 
-    <form action="<?php echo ADMIN_URL . 'report/feedback/student_facultywiselistener'; ?>" method="post" id="manage">
+    <form action="<?php echo ADMIN_URL . 'report/feedback/facultyOverAllListener'; ?>" method="post" id="manage">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">

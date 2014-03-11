@@ -88,13 +88,17 @@ $route['admin/report/login/view/(:any)'] = "admin/login_report/index/$1";
 $route['admin/report/login/getJson/(:any)'] = "admin/login_report/getJson/$1";
 $route['admin/report/login/getJsonForNoLogin/(:any)'] = "admin/login_report/getJsonForNoLogin/$1";
 
-//Feedback
+//Feedback of Student By Faculty
 $route['admin/report/feedback/student'] = "admin/feedback/ViewStudentFeedback";
 $route['admin/report/feedback/student_subjectwise'] = "admin/feedback/subjectWiseStudentFeedBack";
 $route['admin/report/feedback/student_subjectwiselistener'] = "admin/feedback/subjectwiselistener";
-
 $route['admin/report/feedback/student_facultywise'] = "admin/feedback/facultyWiseStudentFeedBack";
 $route['admin/report/feedback/student_facultywiselistener'] = "admin/feedback/facultywiselistener";
+
+//Feedback of Faculty By Student
+$route['admin/report/feedback/faculty_over_all'] = "admin/feedback/faculty_over_all";
+$route['admin/report/feedback/faculty_studentwise'] = "admin/feedback/studentWiseFacultyFeedBack";
+$route['admin/report/feedback/facultyOverAllListener'] = "admin/feedback/facultyOverAllListener";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
