@@ -93,5 +93,8 @@ $route['admin/report/feedback/student'] = "admin/feedback/ViewStudentFeedback";
 $route['admin/report/feedback/student_subjectwise'] = "admin/feedback/subjectWiseStudentFeedBack";
 $route['admin/report/feedback/student_subjectwiselistener'] = "admin/feedback/subjectwiselistener";
 
+$route['admin/report/feedback/student_facultywise'] = "admin/feedback/facultyWiseStudentFeedBack";
+$route['admin/report/feedback/student_facultywiselistener'] = "admin/feedback/facultywiselistener";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

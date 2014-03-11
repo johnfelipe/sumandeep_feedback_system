@@ -3,7 +3,7 @@
     $(document).ready(function() {
         $("#manage").validate();
 
-        <?php $date = date('m/d/Y', strtotime(get_current_date_time()->get_date_for_db())); ?>
+<?php $date = date('m/d/Y', strtotime(get_current_date_time()->get_date_for_db())); ?>
         $("#date_from").datepicker({dateFormat: 'dd-mm-yy', maxDate:<?php echo $date; ?>, changeMonth: true, changeYear: true, yearRange: "1900:<?php echo date('Y'); ?>"});
 
         $("#date_to").datepicker({dateFormat: 'dd-mm-yy', maxDate:<?php echo $date; ?>, changeMonth: true, changeYear: true, yearRange: "1900:<?php echo date('Y'); ?>"});
@@ -33,25 +33,12 @@
             var sid = $('#semester_details').val();
             $.ajax({
                 type: 'GET',
-                url: '<?php echo ADMIN_URL; ?>feedback/getSubjectDetails/' + sid,
+                url: '<?php echo ADMIN_URL; ?>feedback/getFacultyDetails/' + sid,
                 success: function(data)
                 {
 
-                    $('#subject_details').empty();
-                    $('#subject_details').append(data);
-                    $.ajax({
-                        type: 'GET',
-                        url: '<?php echo ADMIN_URL; ?>feedback/getStudentDetails/' + sid,
-                        success: function(data)
-                        {
-                            $('#student_details').empty();
-                            $('#student_details').html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown)
-                        {
-                            alert('error');
-                        }
-                    });
+                    $('#faculty_details').empty();
+                    $('#faculty_details').append(data);
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
@@ -84,7 +71,7 @@
     }
     ?>
 
-    <form action="<?php echo ADMIN_URL . 'report/feedback/student_subjectwiselistener'; ?>" method="post" id="manage">
+    <form action="<?php echo ADMIN_URL . 'report/feedback/student_facultywiselistener'; ?>" method="post" id="manage">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -125,12 +112,12 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
-                        Subject
+                        Faculty
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-md-8">
-                        <select class="form-control required" name="subjectid" id="subject_details">
-                            <option value="">Select Subject</option>
+                        <select class="form-control required" name="facultyid" id="faculty_details">
+                            <option value="">Select Faculty</option>
                         </select>
                     </div>
                 </div>
@@ -139,13 +126,11 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="question" class="col-md-4 control-label">
-                        Student
-                        <span class="text-danger">*</span>
+                        &nbsp;
+                        <span class="text-danger">&nbsp;</span>
                     </label>
                     <div class="col-md-8">
-                        <select class="form-control required" name="userid" id="student_details">
-                            <option value="0">All Student</option>
-                        </select>
+                        &nbsp;
                     </div>
                 </div>
             </div>

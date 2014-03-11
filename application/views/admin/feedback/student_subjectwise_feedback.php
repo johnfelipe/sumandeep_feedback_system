@@ -1,6 +1,6 @@
 <link href="<?php echo CSS_URL; ?>jquery.jqplot.css" rel="stylesheet" />
 <div class="col-md-12">
-    <h3>Feedback Report of Students : Subject Wise</h3>
+    <h3>Feedback Report of Students : <?php echo @$label; ?></h3>
     <hr>
 
     <?php
@@ -28,7 +28,11 @@
         <tr>
             <th><?php echo @$course_detials[0]->course_name; ?></th>
             <th><?php echo @$sem_detials[0]->semester_name . ' (' . @$sem_detials[0]->batch . ')'; ?></th>
-            <th><?php echo @$sub_detials[0]->subject_name; ?></th>
+            <?php if (isset($sub_detials)) { ?>
+                <th><?php echo @$sub_detials[0]->subject_name; ?></th>
+            <?php } else if (isset($faculty_detail)) { ?>
+                <th><?php echo @$faculty_detail[0]->fullname; ?></th>
+            <?php } ?>
         </tr>
 
         <tr>
