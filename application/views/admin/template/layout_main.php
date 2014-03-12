@@ -29,7 +29,7 @@
         <script src="<?php echo JS_URL; ?>jquery.raty.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery-ui.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery-ui-timepicker-addon.js" type="text/javascript"></script>
-        
+
         <script type="text/javascript">
             var http_host_js = '<?php echo ADMIN_URL; ?>';
         </script>
@@ -52,65 +52,63 @@
 
             <!--Navigation Bar-->
             <div class="navbar navbar-inverse">
-                <div class="container padding-killer">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse padding-killer">
-                        <ul class="nav navbar-nav">
-                            <li><a href="<?php echo ADMIN_URL . 'course' ?>">Course</a></li>
-                            <li><a href="<?php echo ADMIN_URL . 'faculty' ?>">Faculty</a></li>
-                            <li><a href="<?php echo ADMIN_URL . 'student' ?>">Student</a></li>
-                            <li><a href="<?php echo ADMIN_URL . 'feedback_parameter' ?>">Feedback Parameters</a></li>
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="#">Login</a>
-                                        <ul class="dropdown-menu">                                           
-                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/student' ?>">Login Student</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_student' ?>">No Login Student</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/faculty' ?>">Login Faculty</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_faculty' ?>">No Login Faculty</a></li>
-                                        </ul>
-                                    </li>
-                                    
-                                     <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="#">Feedback</a>
-                                        <ul class="dropdown-menu">                                           
-                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/student_subjectwise' ?>">Student Subject Wise</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/student_facultywise' ?>">Student Faculty Wise</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty_over_all' ?>">Faculty Over All</a></li>
-                                            <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty_studentwise' ?>">Faculty Student Wise</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li> 
-
-                        </ul>
-
-                        <ul class="nav navbar-nav pull-right">
-                            <li class="dropdown">
-                                <?php $session = $this->session->userdata('feedback_session'); ?>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo @$session->fullname; ?>
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo base_url() . 'logout'; ?>">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="<?php echo ADMIN_URL . 'course' ?>">Course</a></li>
+                        <li><a href="<?php echo ADMIN_URL . 'faculty' ?>">Faculty</a></li>
+                        <li><a href="<?php echo ADMIN_URL . 'student' ?>">Student</a></li>
+                        <li><a href="<?php echo ADMIN_URL . 'feedback_parameter' ?>">Feedback Parameters</a></li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Login</a>
+                                    <ul class="dropdown-menu">                                           
+                                        <li><a href="<?php echo ADMIN_URL . 'report/login/view/student' ?>">Login Student</a></li>
+                                        <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_student' ?>">No Login Student</a></li>
+                                        <li><a href="<?php echo ADMIN_URL . 'report/login/view/faculty' ?>">Login Faculty</a></li>
+                                        <li><a href="<?php echo ADMIN_URL . 'report/login/view/no_faculty' ?>">No Login Faculty</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Feedback</a>
+                                    <ul class="dropdown-menu">                                           
+                                        <li><a href="<?php echo ADMIN_URL . 'report/feedback/student_subjectwise' ?>">Student Subject Wise</a></li>
+                                        <li><a href="<?php echo ADMIN_URL . 'report/feedback/student_facultywise' ?>">Student Faculty Wise</a></li>
+                                        <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty_over_all' ?>">Faculty Over All</a></li>
+                                        <li><a href="<?php echo ADMIN_URL . 'report/feedback/faculty_studentwise' ?>">Faculty Student Wise</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li> 
+
+                    </ul>
+
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown">
+                            <?php $session = $this->session->userdata('feedback_session'); ?>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <?php echo @$session->fullname; ?>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo base_url() . 'logout'; ?>">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
             <!--/Navigation Bar-->
 

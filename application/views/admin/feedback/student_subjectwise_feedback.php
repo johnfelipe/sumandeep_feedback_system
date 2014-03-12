@@ -1,7 +1,5 @@
 <link href="<?php echo CSS_URL; ?>jquery.jqplot.css" rel="stylesheet" />
 <div class="col-md-12">
-
-
     <h3>
         <?php if (@$label == 'Student Wise') { ?> 
             <a href="<?php echo ADMIN_URL . 'report/feedback/student_subjectwise'; ?>" class="btn btn-primary btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</a>
@@ -9,30 +7,34 @@
             <a href="<?php echo ADMIN_URL . 'report/feedback/student_facultywise'; ?>" class="btn btn-primary btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Go Back</a>
         <?php } ?>
         &nbsp;
-        Feedback Report of Students : <?php echo @$label . @$date_from . @$date_to; ?></h3>
+        Feedback Report of Students : <?php echo @$label . @$date_from . @$date_to; ?>
+    </h3>
     <hr>
+</div>
 
-    <?php
-    if ($this->session->flashdata('error') != '') {
-        echo '<div class="alert alert-danger"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('error') . '</div>';
-    }
-    ?>
+<?php
+if ($this->session->flashdata('error') != '') {
+    echo '<div class="col-md-12"><div class="alert alert-danger"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('error') . '</div></div>';
+}
+?>
 
-    <?php
-    if ($this->session->flashdata('success') != '') {
-        echo '<div class="alert alert-success"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('success') . '</div>';
-    }
-    ?>
+<?php
+if ($this->session->flashdata('success') != '') {
+    echo '<div class="col-md-12"><div class="alert alert-success"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('success') . '</div></div>';
+}
+?>
 
-    <?php
-    if ($this->session->flashdata('info') != '') {
-        echo '<div class="alert alert-info"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('info') . '</div>';
-    }
-    ?>
+<?php
+if ($this->session->flashdata('info') != '') {
+    echo '<div class="col-md-12"><div class="alert alert-info"><a href="' . current_url() . '" class="close" data-dismiss="alert">&times;</a>' . $this->session->flashdata('info') . '</div></div>';
+}
+?>
 
-    <div id="chart2" class="col-md-10" style="height: 500px;"></div>
+<div class="col-md-12">
+    <div id="chart2" style="height: 500px;"></div>
+</div>
 
-    <br /><br />
+<div class="col-md-12">
     <table class="table table-bordered">
         <tr>
             <th><?php echo @$course_detials[0]->course_name; ?></th>
@@ -82,8 +84,9 @@
             },
             legend: {
                 show: true,
-                location: 'e',
-                placement: 'outside',
+                location: 'nw',
+                placement: 'inside',
+                fontSize: '11px',
                 labels: types
             },
             axes: {
@@ -93,9 +96,11 @@
                     label: 'Students',
                     labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
                     tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                    tickOptions: {
-                        angle: -90
-                    }
+<?php if (count($student_details) > 4) { ?>
+                        tickOptions: {
+                            angle: - 90
+                        }
+<?php } ?>
                 },
                 yaxis: {
                     label: 'Ratting',
@@ -105,6 +110,10 @@
                     }
                 }
             }
+        });
+
+        $(window).resize(function() {
+            plot2.replot({resetAxes: true});
         });
     });
 </script>

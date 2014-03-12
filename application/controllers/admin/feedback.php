@@ -84,6 +84,10 @@ class feedback extends CI_Controller {
     }
 
     function subjectwiselistener() {
+        if (empty($_POST)) {
+            redirect(ADMIN_URL . 'report/feedback/student_subjectwise', 'refresh');
+        }
+
         $sid = $this->input->post('sid');
         $subjectid = $this->input->post('subjectid');
         $date_from = $this->input->post('date_from');
@@ -113,7 +117,11 @@ class feedback extends CI_Controller {
 
         $feedback = $obj_master->getFeedbackId($where);
         if (!is_null($feedback) && !empty($feedback)) {
-            $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
+            if ($this->input->post('userid') == 0) {
+                $student_list = $this->sfs_assign_student_model->getSemesterStudent($sid);
+            } else {
+                $student_list = $this->sfs_user_model->getWhere(array('userid' => $this->input->post('userid')));
+            }
             $student_details = array();
             foreach ($student_list as $value) {
                 $obj_detail = new sfs_student_feedback_details_model();
@@ -149,6 +157,9 @@ class feedback extends CI_Controller {
     }
 
     function facultywiselistener() {
+        if (empty($_POST)) {
+            redirect(ADMIN_URL . 'report/feedback/student_facultywise', 'refresh');
+        }
         $sid = $this->input->post('sid');
         $facultyid = $this->input->post('facultyid');
         $date_from = $this->input->post('date_from');
@@ -211,6 +222,9 @@ class feedback extends CI_Controller {
     }
 
     function facultyOverAllListener() {
+        if (empty($_POST)) {
+            redirect(ADMIN_URL . 'report/feedback/faculty_over_all', 'refresh');
+        }
         $sid = $this->input->post('sid');
         $facultyid = (int) $this->input->post('facultyid');
         $date_from = $this->input->post('date_from');
@@ -282,6 +296,9 @@ class feedback extends CI_Controller {
     }
 
     function facultyStudentWiseListener() {
+        if (empty($_POST)) {
+            redirect(ADMIN_URL . 'report/feedback/faculty_studentwise', 'refresh');
+        }
         $sid = $this->input->post('sid');
         $student_id = $this->input->post('studentid');
         $date_from = $this->input->post('date_from');
@@ -309,9 +326,13 @@ class feedback extends CI_Controller {
         }
 
         $feedback = $obj_master->getFeedbackId($where);
-        
+
         if (!is_null($feedback) && !empty($feedback)) {
-            $list = $this->sfs_assign_faculty_model->getSemesterFaculty($sid);
+            if ($this->input->post('facultyid') == 0) {
+                $list = $this->sfs_assign_faculty_model->getSemesterFaculty($sid);
+            } else {
+                $list = $this->sfs_user_model->getWhere(array('userid' => $this->input->post('facultyid')));
+            }
             $details = array();
             foreach ($list as $value) {
                 $obj_detail = new sfs_faculty_feedback_details_model();

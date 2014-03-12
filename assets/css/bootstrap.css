@@ -3511,7 +3511,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-toggle {
     position: relative;
     float: right;
-    margin-right: 15px;
+    margin-right: 20px;
     padding: 9px 10px;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -3534,7 +3534,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     }
 }
 .navbar-nav {
-    margin: 7.5px -15px;
+    /*margin: 0 15px 0 10px;*/
 }
 .navbar-nav > li > a {
     padding-top: 10px;
@@ -3797,18 +3797,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
     background-color: transparent;
 }
 .navbar-inverse .navbar-toggle {
-    border-color: #333333;
+    border-color: #ffffff;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-    background-color: #333333;
+    background-color: #2a6496;
 }
 .navbar-inverse .navbar-toggle .icon-bar {
     background-color: #ffffff;
 }
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-    border-color: #101010;
+    border-color: #FFFFFF;
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
@@ -3835,7 +3835,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
         border-color: #080808;
     }
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-        color: #999999;
+        color: #DCDCDC;
     }
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
