@@ -188,8 +188,10 @@ Class sfs_student_feedback_details_model extends CI_model {
         if (is_float($count)) {
             $count = floor($count);
             $median = $temp[$count];
-        } else {
+        } else if (is_int($count) && $count != 0) {
             $median = ($temp[$count - 1] + $temp[$count]) / 2;
+        } else {
+            $median = 0;
         }
 
 

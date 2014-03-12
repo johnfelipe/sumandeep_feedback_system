@@ -63,8 +63,8 @@ if ($this->session->flashdata('info') != '') {
             ?>
             <tr>
                 <td><?php echo $details['name']; ?> </td>
-                <td><?php echo $details['average']; ?> </td>
-                <td><?php echo $details['median']; ?> </td>
+                <th><?php echo $details['average'] == 0 ? '<span class="text-danger">Absent</span>' : $details['average']; ?> </th>
+                <th><?php echo $details['median'] == 0 ? '<span class="text-danger">Absent</span>' : $details['median']; ?> </th>
             </tr>
         <?php } ?> 
     </table>

@@ -113,16 +113,19 @@ class feedback extends CI_Controller {
         $master_id = $obj_master->insertData();
 
         foreach ($student_list as $student) {
-            foreach ($parameters as $param) {
-                $obj_detail = new sfs_student_feedback_details_model();
-                $obj_detail->student_feedback_id = $master_id;
-                $obj_detail->studentid = $student->userid;
-                $obj_detail->parameterid = $param->paramterid;
-                $score = $this->input->post('ratting_' . $param->paramterid . '_' . $student->userid);
-                if ($score != '') {
-                    $obj_detail->ratting = $score;
-                } else {
-                    $obj_detail->ratting = '0';
+            if (!in_array($student->userid, $this->input->post('student_absent'))) {
+                foreach ($parameters as $param) {
+                    $obj_detail = new sfs_student_feedback_details_model();
+                    $obj_detail->student_feedback_id = $master_id;
+                    $obj_detail->studentid = $student->userid;
+                    $obj_detail->parameterid = $param->paramterid;
+                    $score = $this->input->post('ratting_' . $param->paramterid . '_' . $student->userid);
+
+                    if ($score != '') {
+                        $obj_detail->ratting = $score;
+                    } else {
+                        $obj_detail->ratting = '0';
+                    }
                 }
                 $obj_detail->insertData();
             }

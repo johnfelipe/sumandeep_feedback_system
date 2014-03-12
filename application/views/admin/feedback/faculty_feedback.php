@@ -34,7 +34,7 @@ if ($this->session->flashdata('info') != '') {
 
 
 <div class="col-md-12">
-    <div id="chart2" class="ui-widget-content ui-resizable" style="height: 500px;"></div>
+    <div id="chart2" style="height: 500px;"></div>
 </div>
 
 <div class="clear"></div>

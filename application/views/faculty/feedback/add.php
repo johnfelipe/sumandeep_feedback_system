@@ -1,7 +1,7 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
-        $("#manage").validate();
+        $("#manage").validate({ignore: "input[type='text']:hidden",});
 
         $('#topic_time_from').timepicker({hourMin: 9, hourMax: 17});
         $('#topic_time_to').timepicker({hourMin: 9, hourMax: 17});
