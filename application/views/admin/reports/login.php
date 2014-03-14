@@ -70,10 +70,10 @@
             </select>
         </div>
         <div class="col-md-4">
-            <input type="text" name="date_from" id="date_from" placeholder="Date From" class="form-control"/>
+            <input type="text" name="date_from" id="date_from" placeholder="Date From" class="form-control" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db() . '-1 day')); ?>"/>
         </div>
         <div class="col-md-4">
-            <input type="text" id="date_to" name="date_to" class="form-control" placeholder="Date To"/>
+            <input type="text" id="date_to" name="date_to" class="form-control" placeholder="Date To" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db(). '-1 day')); ?>"/>
         </div>
     </div>
 </div>
