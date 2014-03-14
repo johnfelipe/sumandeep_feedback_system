@@ -65,7 +65,7 @@
             </select>
         </div>
         <div class="col-md-6">
-            <input type="text" name="date_from" id="date_from" placeholder="Date From" class="form-control" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>"/>
+            <input type="text" name="date_from" id="date_from" placeholder="Date From" class="form-control" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db() . '-1 day')); ?>"/>
         </div>
     </div>
 </div>
