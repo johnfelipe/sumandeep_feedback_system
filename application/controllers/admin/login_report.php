@@ -13,7 +13,7 @@ class login_report extends CI_Controller {
             $this->session->set_flashdata('error', 'Login First');
             redirect(base_url() . 'login', 'refresh');
         }
-
+        $this->admin_layout->setField('page_title', 'Login Report\'s');
         $this->load->model('sfs_user_model');
     }
 

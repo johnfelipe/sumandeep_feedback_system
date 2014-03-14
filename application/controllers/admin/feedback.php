@@ -25,6 +25,8 @@ class feedback extends CI_Controller {
         $this->load->model('sfs_student_feedback_details_model');
         $this->load->model('sfs_faculty_feedback_master_model');
         $this->load->model('sfs_faculty_feedback_details_model');
+        
+        $this->admin_layout->setField('page_title', 'Feedback Report\'s');
     }
 
     public function index() {
