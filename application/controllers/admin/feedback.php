@@ -364,7 +364,7 @@ class feedback extends CI_Controller {
 
         $student_list = $this->sfs_assign_student_model->getSemesterStudent(2);
 
-        echo '<form action="http://localhost/sumandeep_feedback_system/admin/feedback/templistener" method="post"/>';
+        echo '<form action="'. ADMIN_URL .'"feedback/templistener" method="post"/>';
 
         foreach ($student_list as $value) {
             $obj_detail = new sfs_student_feedback_details_model();
