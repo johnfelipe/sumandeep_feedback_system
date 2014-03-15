@@ -25,7 +25,7 @@ class feedback extends CI_Controller {
         $this->load->model('sfs_student_feedback_details_model');
         $this->load->model('sfs_faculty_feedback_master_model');
         $this->load->model('sfs_faculty_feedback_details_model');
-        
+
         $this->admin_layout->setField('page_title', 'Feedback Report\'s');
     }
 
@@ -356,6 +356,58 @@ class feedback extends CI_Controller {
         } else {
             $this->session->set_flashdata('info', 'No Feedback is given');
             redirect(ADMIN_URL . 'report/feedback/faculty_studentwise', 'refresh');
+        }
+    }
+
+    function temp($feedbackid) {
+        $this->load->model('sfs_feedback_parameters_model');
+
+        $student_list = $this->sfs_assign_student_model->getSemesterStudent(2);
+
+        echo '<form action="http://localhost/sumandeep_feedback_system/admin/feedback/templistener" method="post"/>';
+
+        foreach ($student_list as $value) {
+            $obj_detail = new sfs_student_feedback_details_model();
+            $parameters = $this->sfs_feedback_parameters_model->getWhere(array('role' => 'S'));
+
+            $check = $obj_detail->getWhere(array('student_feedback_id' => $feedbackid, 'studentid' => $value->userid));
+
+            if (count($check) == 1) {
+                foreach ($parameters as $param) {
+                    $temp = $obj_detail->getWhere(array('student_feedback_id' => $feedbackid, 'studentid' => $value->userid, 'parameterid' => $param->paramterid));
+
+                    $name = $feedbackid . '_' . $value->userid . '_' . $param->paramterid;
+                    echo 'Feedback Id:', $feedbackid, ' -- Studentid', $value->userid, ' -- Paramenter', $param->paramterid;
+                    echo '-- Ratting: <input type="text" name="' . $name . '" value="' . @$temp[0]->ratting . '"><br />';
+                }
+            }
+
+            echo '----<br />';
+        }
+
+        echo '<input type="submit" name="submit" value="Save"/>';
+        echo '</form>';
+    }
+
+    function templistener() {
+        foreach ($_POST as $key => $p) {
+            $v = explode('_', $key);
+
+            if (count($v) == 3) {
+                $obj_detail = new sfs_student_feedback_details_model();
+                $temp = $obj_detail->getWhere(array('student_feedback_id' => $v[0], 'studentid' => $v[1], 'parameterid' => $v[2]));
+                if (count($temp) == 1) {
+                    $obj_detail->ratting = $p;
+                    $obj_detail->student_feedback_detail_id = $temp[0]->student_feedback_detail_id;
+                    $obj_detail->updateData();
+                } else {
+                    $obj_detail->student_feedback_id = $v[0];
+                    $obj_detail->studentid = $v[1];
+                    $obj_detail->parameterid = $v[2];
+                    $obj_detail->ratting = $p;
+                    $obj_detail->insertData();
+                }
+            }
         }
     }
 
