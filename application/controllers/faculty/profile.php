@@ -19,7 +19,7 @@ class profile extends CI_Controller {
     public function index() {
         $session = $this->session->userdata('feedback_session');
         $data['profile'] = $this->sfs_user_model->getWhere(array('userid' => $session->userid));
-        $this->student_layout->view('faculty/profile/edit_profile', $data);
+        $this->faculty_layout->view('faculty/profile/edit_profile', $data);
     }
 
     function checkusername($userid) {
@@ -87,7 +87,7 @@ class profile extends CI_Controller {
     }
 
     function changePassword() {
-        $this->student_layout->view('faculty/profile/change_password');
+        $this->faculty_layout->view('faculty/profile/change_password');
     }
 
 }

@@ -126,8 +126,8 @@ class feedback extends CI_Controller {
                     } else {
                         $obj_detail->ratting = '0';
                     }
+                    $obj_detail->insertData();
                 }
-                $obj_detail->insertData();
             }
         }
 
