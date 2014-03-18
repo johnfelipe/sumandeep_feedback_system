@@ -364,7 +364,7 @@ class feedback extends CI_Controller {
 
         $student_list = $this->sfs_assign_student_model->getSemesterStudent(2);
 
-        echo '<form action="'. ADMIN_URL .'"feedback/templistener" method="post"/>';
+        echo '<form action="' . ADMIN_URL . 'feedback/templistener" method="post"/>';
 
         foreach ($student_list as $value) {
             $obj_detail = new sfs_student_feedback_details_model();
@@ -378,7 +378,7 @@ class feedback extends CI_Controller {
 
                     $name = $feedbackid . '_' . $value->userid . '_' . $param->paramterid;
                     echo 'Feedback Id:', $feedbackid, ' -- Studentid', $value->userid, ' -- Paramenter', $param->paramterid;
-                    echo '-- Ratting: <input type="text" name="' . $name . '" value="' . @$temp[0]->ratting . '"><br />';
+                    echo '-- Ratting: <input type="text" name="' . $name . '" value="' . mt_rand(1,5) . '"><br />';
                 }
             }
 
